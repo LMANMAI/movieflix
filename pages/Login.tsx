@@ -19,7 +19,6 @@ const Container = styled.div`
   position: relative;
   width: 100%;
   min-height: 100vh;
-  // background-color: #6b6b6b;
   overflow: hidden;
   background-image: url("/img/home-bg.jpg");
   &::before {
@@ -42,12 +41,12 @@ const Container = styled.div`
     left: ${(props) => props.position && "25%"};
   }
   .sing_up_form {
-    z-index: ${(props) => props.position && "1"};
-    opacity: ${(props) => props.position && "0"};
+    z-index: ${(props) => (props.position ? "1" : "2")};
+    opacity: ${(props) => (props.position ? "0" : "1")};
   }
   .sing_in_form {
-    z-index: ${(props) => props.position && "2"};
-    opacity: ${(props) => props.position && "1"};
+    z-index: ${(props) => (props.position ? "2" : "1")};
+    opacity: ${(props) => (props.position ? "1" : "0")};
   }
 `;
 const FormContainer = styled.div`
@@ -72,13 +71,7 @@ const Formulario = styled.form`
   grid-row: 1/ 2;
   padding: 0 5rem;
   overflow: hidden;
-  &.sing_up_form {
-    z-index: 2;
-  }
-  &.sing_in_form {
-    z-index: 1;
-    opacity: 0;
-  }
+
   transition: 0.2s 0.7s ease-in-out;
 `;
 const InputField = styled.div`
