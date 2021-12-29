@@ -1,10 +1,10 @@
 import React from "react";
-import { Tittle } from "../styles";
+import { Tittle, BaseContainer } from "../styles";
 const Landing = () => {
   return (
-    <div>
+    <BaseContainer>
       <Tittle>desde el landing</Tittle>
-    </div>
+    </BaseContainer>
   );
 };
 
