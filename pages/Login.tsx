@@ -26,54 +26,57 @@ const Login = () => {
       <FormContainer>
         <SigninUpContainer>
           <Formulario className="sing_up_form">
-            <h2>Sign In</h2>
+            <h2>Inicia sesión</h2>
             <InputField>
               <span>
                 <BiUser />
               </span>
 
-              <Input type="text" placeholder="Username" />
+              <Input
+                type="text"
+                placeholder="Nombre de usuario o Correo electronico"
+              />
             </InputField>
             <InputField>
               <span>
                 <BiLockAlt />
               </span>
 
-              <Input type="password" placeholder="Password" />
+              <Input type="password" placeholder="Contraseña" />
             </InputField>
-            <InputButton type="submit" value="Login" />
+            <InputButton type="submit" value="Entrar" />
           </Formulario>
 
           <Formulario className="sing_in_form">
-            <h2>Sing Up</h2>
+            <h2>Registrate</h2>
             <InputField>
               <span>
                 <BiUser />
               </span>
 
-              <Input type="text" placeholder="Username" />
+              <Input type="text" placeholder="Nombre de usuario" />
             </InputField>
             <InputField>
               <span>
                 <AiOutlineMail />
               </span>
-              <Input type="email" placeholder="Email" />
+              <Input type="email" placeholder="Correo Electronico" />
             </InputField>
             <InputField>
               <span>
                 <BiLockAlt />
               </span>
 
-              <Input type="password" placeholder="Password" />
+              <Input type="password" placeholder="Contraseña" />
             </InputField>
-            <InputButton type="submit" value="Login" />
+            <InputButton type="submit" value="Comenzar!" />
           </Formulario>
         </SigninUpContainer>
       </FormContainer>
       <PanelsContainer className="panels-container">
         <PanelLeft className="panel panel_left" position={position}>
           <Content className="content">
-            <h3>New Here?</h3>
+            <h3>¿Nuevo aqui?</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora?
             </p>
@@ -88,7 +91,7 @@ const Login = () => {
         </PanelLeft>
         <PanelRight className="panel panel_right" position={position}>
           <Content className="content">
-            <h3>Already have account?</h3>
+            <h3>¿Ya tienes una cuenta?</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora?
             </p>

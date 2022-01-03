@@ -1,9 +1,93 @@
 import styled from "styled-components";
-
+export const BaseContainer = styled.div`
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background-image: url("/img/home-bg.jpg");
+`;
+// Landing page
 export const Tittle = styled.h1`
   color: red;
+  font-size: 30px;
+  text-transform: capitalize;
 `;
+export const Wraper = styled.main`
+  width: 90%;
+  margin: 0 auto;
+`;
+export const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-height: 45px;
+  padding: 15px 10px;
+`;
+export const LogginButton = styled.button`
+  background-color: #e50914;
+  line-height: normal;
+  padding: 7px 17px;
+  font-weight: 400;
+  font-size: 1rem;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+`;
+export const Box = styled.div`
+  min-width: 270px;
+  max-width: 510px;
+  width: 40%;
+  min-height: 250px;
+  height: 25vh;
+  border-radius: 15px;
+  color: white;
+  background-color: black;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: 0.5s 0.1s ease-in-out;
+  img {
+    width: 30%;
+    align-self: center;
+    justify-self: center;
+    transition: 0.5s 0.1s ease-in-out;
+  }
 
+  &:nth-child(2) {
+    img {
+      width: 15%;
+    }
+  }
+  &:hover{
+    &:nth-child(2) {
+    img {
+      width: 20%;
+    }
+  }
+`;
+export const LandingContent = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 2rem;
+  z-index: 1;
+  position: relative;
+`;
+export const BlurBox = styled.div`
+  border: 1px solid red;
+  width: 80%;
+  height: 90%;
+  position: absolute;
+  min-height: 403px;
+  z-index: 2;
+  filter: blur(4px) !important;
+`;
+//Login Page
 export const SigninUpContainer = styled.div`
   position: absolute;
   top: 50%;
@@ -15,13 +99,7 @@ export const SigninUpContainer = styled.div`
   z-index: 5;
   transition: 1s 0.7s ease-in-out;
 `;
-export const BaseContainer = styled.div`
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  overflow: hidden;
-  background-image: url("/img/home-bg.jpg");
-`;
+
 export const Container = styled(BaseContainer)`  
   &::before {
     content: "";
@@ -41,7 +119,8 @@ export const Container = styled(BaseContainer)`
   }
   .image {
     width: 100%;
-    transition: transform 1.1s ease-in-out;
+    transition:  1.1s ease-in-out;
+    transition-delay: 0.6s;
   }
 
   ${SigninUpContainer} {
@@ -73,7 +152,7 @@ export const Container = styled(BaseContainer)`
     }
     .image {
       width: 200px;
-      transition: transform 0.9s ease-in-out;
+      transition:  0.9s ease-in-out;
       transition-delay: 0.6s;
     }
     ${SigninUpContainer} {
