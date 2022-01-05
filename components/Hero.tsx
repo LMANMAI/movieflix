@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const HeroWraper = styled.div`
   box-sizing: border-box;
-  width: 95%;
+  width: 100%;
   margin: 15px auto;
   padding: 1.125rem;
   height: fit-content;
@@ -42,10 +42,7 @@ const HeroColumn = styled.div`
     margin-top: 3.25rem;
   }
   &:hover {
-    /* margin-right: 35px;
-    margin-left: 35px; */
-    //transform: scaleX(1.5);
-    flex: 10%;
+    flex: 15%;
     z-index: 5;
 
     img {

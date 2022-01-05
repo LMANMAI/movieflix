@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 const Wraper = styled.div`
+  grid-column: 1 / 2;
+  grid-row: 1 / 4;
   .svg_menu.open {
     position: absolute;
     left: 25px;
@@ -23,26 +25,25 @@ const Wraper = styled.div`
 const SideContainer = styled.div`
   grid-column: 1 / 2;
   height: 100%;
-      display: flex;
-      flex-direction: column;
-      
-  ul{
-     
+  display: flex;
+  flex-direction: column;      
+  z-index: 99;
+  background-color: #161A1D ;
+  ul{     
      padding: 15px;
-     position:relative;
+     position:fixed;
      top: 45%;
-     li{
-         padding: 8px;
-         font-size: 1.125rem;
-         letter-spacing: 1px;
-         color: #F5F3F4;
-     }
+li{
+    padding: 8px;
+    font-size: 1.125rem;
+    letter-spacing: 1px;
+    color: #F5F3F4;
+}
 
   }
   @media (max-width: 480px) {
-    border: 1px solid red;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     width: 75%;
     z-index: 9;
     background-color: #161a1d;
@@ -85,11 +86,7 @@ const SideBar = () => {
           onClick={() => setMenu(!menu)}
         />
         <SearchContainer className="search_container">
-          <InputSearch
-            type="text"
-            name="buscador"
-            placeholder="Buscar por nombre o genero"
-          />
+          <InputSearch type="text" name="buscador" placeholder="Buscar" />
           <AiOutlineSearch />
         </SearchContainer>
         <ul>
