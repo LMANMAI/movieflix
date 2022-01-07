@@ -1,107 +1,38 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from "react";
+import { HeroWraper, HeroColumnContainer, HeroColumn } from "../styles";
+import axios from "../config/axios";
+import request from "../config/requests";
 
-const HeroWraper = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  margin: 15px auto;
-  padding: 1.125rem;
-  height: fit-content;
-`;
-const HeroColumnContainer = styled.div`
-  display: flex;
-  gap: 25px;
-  @media (max-width: 780px) {
-    overflow-x: auto;
-  }
-`;
-const HeroColumn = styled.div`
-  min-width: 100px;
-  height: 100%;
-  flex: 1;
-  overflow: hidden;
-  min-height: 55vh;
-  margin-top: 1.25rem;
-  transition: 450ms ease-in-out;
-  cursor: pointer;
-  & > img {
-    width: 100%;
-    min-height: 65vh;
-    object-fit: cover;
-  }
-  &:first-child {
-    margin-top: 0 !important;
-  }
-  &:last-child {
-    margin-top: 0 !important;
-  }
-  &:nth-child(2n + 1) {
-    margin-top: 4rem;
-  }
-  &:nth-child(3n + 1) {
-    margin-top: 3.25rem;
-  }
-  &:hover {
-    flex: 15%;
-    z-index: 5;
-
-    img {
-      width: 100%;
-    }
-  }
-`;
 const Hero = () => {
+  const baseUrl = "https://image.tmdb.org/t/p/original/";
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const dataRequest = await axios.get(request.fetchTrending);
+
+      setMovies(
+        dataRequest.data.results
+          .sort(() => {
+            return Math.random() - 0.5;
+          })
+          .slice(0, 8)
+      );
+    };
+    getData();
+  }, []);
   return (
     <HeroWraper>
       <HeroColumnContainer>
-        <HeroColumn>
-          <img
-            src="https://es.web.img3.acsta.net/newsv7/19/03/23/17/59/1281629.jpg"
-            alt=""
-          />
-        </HeroColumn>
-        <HeroColumn>
-          <img
-            src="https://es.web.img3.acsta.net/newsv7/19/03/23/17/59/1281629.jpg"
-            alt=""
-          />
-        </HeroColumn>
-        <HeroColumn>
-          <img
-            src="https://es.web.img3.acsta.net/newsv7/19/03/23/17/59/1281629.jpg"
-            alt=""
-          />
-        </HeroColumn>
-        <HeroColumn>
-          <img
-            src="https://es.web.img3.acsta.net/newsv7/19/03/23/17/59/1281629.jpg"
-            alt=""
-          />
-        </HeroColumn>
-        <HeroColumn>
-          <img
-            src="https://es.web.img3.acsta.net/newsv7/19/03/23/17/59/1281629.jpg"
-            alt=""
-          />
-        </HeroColumn>
-        <HeroColumn>
-          <img
-            src="https://es.web.img3.acsta.net/newsv7/19/03/23/17/59/1281629.jpg"
-            alt=""
-          />
-        </HeroColumn>
-        <HeroColumn>
-          <img
-            src="https://es.web.img3.acsta.net/newsv7/19/03/23/17/59/1281629.jpg"
-            alt=""
-          />
-        </HeroColumn>
-        <HeroColumn>
-          <img
-            src="https://es.web.img3.acsta.net/newsv7/19/03/23/17/59/1281629.jpg"
-            alt=""
-          />
-        </HeroColumn>
+        {movies.map((movie) => (
+          <HeroColumn key={movie.id}>
+            <img
+              src={`${baseUrl}${movie.poster_path}`}
+              alt={movie.name}
+              loading="lazy"
+            />
+          </HeroColumn>
+        ))}
       </HeroColumnContainer>
     </HeroWraper>
   );

@@ -1,12 +1,7 @@
 import React from "react";
 import { Row } from "./";
 import request from "../config/requests";
-
-import styled from "styled-components";
-const HomeRowWraper = styled.div`
-  width: 95%;
-  margin: 15px;
-`;
+import { HomeRowWraper } from "../styles";
 const HomeRow = () => {
   return (
     <HomeRowWraper>

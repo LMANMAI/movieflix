@@ -358,3 +358,315 @@ export const ButtonContent = styled(InputButton)`
   font-weight: 600;
   font-size: 0.8rem;
 `;
+
+/* ------    Row      -----------*/
+
+export const RowWraper = styled.div`
+  .contenedor_titulo_controles {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    h3 {
+      font-size: 1.525rem;
+      color: #fff;
+    }
+  }
+`;
+
+export const ContenedorPrincipal = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+  .flecha_izquierda {
+    left: 0;
+  }
+  .flecha_derecha {
+    right: 0;
+  }
+`;
+export const ContenedorCarrousel = styled.div`
+  width: 100%;
+  padding: 20px 0;
+  overflow: hidden;
+`;
+export const Carrousel = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+`;
+export const Pelicula = styled.div`
+  min-width: 45%;
+  transition: 0.2s ease all;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+
+  img {
+    width: 100%;
+    vertical-align: top;
+  }
+  @media (min-width: 768px) {
+    min-width: 20%;
+  }
+  &:hover {
+    transform: scale(1.2);
+    transform-origin: center;
+    z-index: 2;
+    .overlay {
+      height: 30%;
+    }
+  }
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    // background-color: #a4161a;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #a4161a);
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    transition: 0.5s ease;
+  }
+  .text {
+    white-space: nowrap;
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+  }
+`;
+export const ButtonCarrousel = styled.button`
+  position: absolute;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.3);
+  font-size: 2.125rem;
+  height: calc(100% - 40px);
+  top: calc(50%, 25%);
+  line-height: 2.125rem;
+  width: 50px;
+  color: white;
+  cursor: pointer;
+  z-index: 5;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+`;
+
+/***HOME */
+
+export const HomeWraper = styled.main`
+  background-color: #161a1d;
+  width: 100%;
+  height: fit-content;
+  //min-height: 100vh;
+  color: white;
+  margin: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  @media (min-width: 480px) {
+    grid-template-columns: auto 2fr;
+    grid-template: auto 1fr auto / auto 2fr;
+  }
+`;
+export const Main = styled.main`
+  overflow-x: auto;
+  max-width: 100vw;
+  min-height: 100vh;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  @media (min-width: 480px) {
+    max-width: 80vw;
+  }
+`;
+
+/**SIDEBAR */
+
+export const SideBarWraper = styled.div`
+  grid-column: 1 / 2;
+  grid-row: 1 / 4;
+  .svg_menu.open {
+    position: absolute;
+    left: 25px;
+    top: 25px;
+    display: ${(props) => props.position && "none"};
+  }
+  .svg_menu.close {
+    margin: 25px;
+    display: ${(props) => !props.position && "none"};
+  }
+  @media (min-width: 480px) {
+    .svg_menu {
+      display: none;
+    }
+  }
+`;
+export const SideContainer = styled.div`
+  grid-column: 1 / 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;      
+  z-index: 99;
+  background-color: #161A1D ;
+  ul{     
+     padding: 15px;
+     position:fixed;
+     top: 45%;
+li{
+    padding: 8px;
+    font-size: 1.125rem;
+    letter-spacing: 1px;
+    color: #F5F3F4;
+}
+
+  }
+  @media (max-width: 480px) {
+    height: 100vh;
+    position: fixed;
+    width: 75%;
+    z-index: 9;
+    background-color: #161a1d;
+    transition: 450ms ease-in-out;
+    left: ${(props) => (props.position ? "0" : "-100%")};
+  }
+ 
+  }
+`;
+export const SearchContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 15%;
+  width: 100%;
+  padding: 1rem 1.125rem;
+  align-items: center;
+  svg {
+    margin: 5px;
+  }
+`;
+export const InputSearch = styled.input`
+  padding: 5px 10px;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: transparent;
+  &:focus {
+    .search_container {
+      border: 1px solid blue;
+    }
+  }
+`;
+
+/**NavBAr */
+export const NavBarContainer = styled.div`
+  padding: 1.125rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+export const BrandContainer = styled.div`
+  width: 100%;
+`;
+export const Brand = styled.h2`
+  color: #ba181b;
+  font-size: 1.125rem;
+  text-align: center;
+`;
+export const UserSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: absolute;
+  right: 45px;
+  .menu_button {
+    cursor: pointer;
+  }
+`;
+export const ImgContainer = styled.div`
+  width: 50px;
+  height: 50px;
+`;
+export const UserIMG = styled.img`
+  width: 100%;
+  border-radius: 100%;
+`;
+export const MenuHiddenContainer = styled.div`
+  border: 1px solid red;
+  padding: 7px;
+  position: absolute;
+  top: 60px;
+  right: 0;
+  min-width: 150px;
+  text-align: center;
+  background-color: rgb(19, 19, 19);
+  border: 1px solid rgba(151, 151, 151, 0.34);
+  border-radius: 4px;
+  box-shadow: rgb(0 0 0 /50%) 0px 0px 18px 0px;
+  transition: all 250ms ease-in-out;
+  visibility: ${(props) => (props.menu ? "visible" : "hidden")};
+  ul li {
+    padding: 5px;
+    cursor: pointer;
+    &:last-child {
+      border-top: 1px solid rgba(151, 151, 151, 0.34);
+    }
+  }
+`;
+export const HomeRowWraper = styled.div`
+  width: 95%;
+  margin: 15px;
+`;
+
+/**HERO */
+export const HeroWraper = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  margin: 15px auto;
+  padding: 1.125rem;
+  height: fit-content;
+`;
+export const HeroColumnContainer = styled.div`
+  display: flex;
+  gap: 25px;
+  @media (max-width: 780px) {
+    overflow-x: auto;
+  }
+`;
+export const HeroColumn = styled.div`
+  min-width: 100px;
+  height: 100%;
+  flex: 1;
+  overflow: hidden;
+  min-height: 55vh;
+  margin-top: 1.25rem;
+  transition: 250ms ease;
+  cursor: pointer;
+  & > img {
+    width: 100%;
+    min-height: 65vh;
+    object-fit: cover;
+  }
+  &:first-child {
+    margin-top: 0 !important;
+  }
+  &:last-child {
+    margin-top: 0 !important;
+  }
+  &:nth-child(2n + 1) {
+    margin-top: 4rem;
+  }
+  &:nth-child(3n + 1) {
+    margin-top: 3.25rem;
+  }
+  &:hover {
+    flex: 30%;
+    z-index: 5;
+
+    img {
+      width: 100%;
+    }
+  }
+`;

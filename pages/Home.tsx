@@ -1,45 +1,81 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import { NavBar, Hero, HomeRow, SideBar, Footer } from "../components";
-import styled from "styled-components";
-
-const HomeWraper = styled.main`
-  background-color: #161a1d;
-  width: 100%;
-  height: fit-content;
-  //min-height: 100vh;
-  color: white;
-  margin: 0;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  @media (min-width: 480px) {
-    grid-template-columns: auto 2fr;
-    grid-template: auto 1fr auto / auto 2fr;
-  }
-`;
-const Main = styled.main`
-  overflow-x: auto;
-  max-width: 100vw;
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  @media (min-width: 480px) {
-    max-width: 80vw;
-  }
-`;
+import axios from "axios";
+import { AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { NavBar, Hero, HomeRow, Footer, SearchResults } from "../components";
+import {
+  HomeWraper,
+  Main,
+  SideBarWraper,
+  SideContainer,
+  SearchContainer,
+  InputSearch,
+} from "../styles";
 
 const Home = () => {
+  const search = false;
+
+  const [menu, setMenu] = useState<boolean>(false);
+  const [busqueda, setBusqueda] = useState("");
+  const [moviesearched, setMoviesSearched] = useState([{}]);
+
+  useEffect(() => {
+    const handleSearch = async () => {
+      const requestSearch = await axios(
+        `https://api.themoviedb.org/3/search/movie?api_key=ae57de85991d61a5ee42ca2c3dfd8558&query=${busqueda}`
+      );
+      console.log("Resultado de la consulta: ", requestSearch.data.results);
+      setMoviesSearched(requestSearch.data.results);
+    };
+    if (busqueda) {
+      handleSearch();
+    }
+  }, [busqueda]);
+  const handleChange = (e) => {
+    setBusqueda(e.target.value);
+  };
   return (
     <>
       <Head>
         <title>movieFLIX</title>
       </Head>
       <HomeWraper>
-        <SideBar />
-        <Main>
-          <NavBar />
-          <Hero />
-        </Main>
-        <HomeRow />
+        <SideBarWraper position={menu}>
+          <AiOutlineMenu
+            className="svg_menu open"
+            onClick={() => setMenu(!menu)}
+          />
+          <SideContainer position={menu}>
+            <AiOutlineClose
+              className="svg_menu close"
+              onClick={() => setMenu(!menu)}
+            />
+            <SearchContainer className="search_container">
+              <InputSearch
+                type="text"
+                name="buscador"
+                placeholder="Buscar"
+                onChange={(e) => handleChange(e)}
+                autocomplete="off"
+              />
+              <AiOutlineSearch />
+            </SearchContainer>
+            <ul>
+              <li>Series</li>
+              <li>Peliculas</li>
+              <li>Estrenos</li>
+            </ul>
+          </SideContainer>
+        </SideBarWraper>
+        {busqueda ? (
+          <SearchResults movies={moviesearched} />
+        ) : (
+          <Main>
+            <NavBar />
+            <Hero />
+            <HomeRow />
+          </Main>
+        )}
         <Footer />
       </HomeWraper>
     </>
