@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import axios from "axios";
+import WithPrivateRoute from "../routes/WithPrivateRoute";
 import { AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { NavBar, Hero, HomeRow, SearchResults } from "../components";
 import {
@@ -106,4 +107,5 @@ export const getServerSideProps: GetServerSideProps = async () => {
     },
   };
 };
+Home.Auth = WithPrivateRoute;
 export default Home;

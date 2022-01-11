@@ -257,6 +257,14 @@ export const Formulario = styled.form`
   padding: 0 5rem;
   overflow: hidden;
   transition: 0.2s 0.7s ease-in-out;
+  .error {
+    background: #a4161a;
+    padding: 1rem 8px;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+  }
 `;
 export const InputField = styled.div`
   max-width: 380px;
@@ -267,7 +275,9 @@ export const InputField = styled.div`
   border-radius: 55px;
   display: grid;
   grid-template-columns: 15% 85%;
+  overflow: hidden;
   padding: 0 0.4rem;
+  outline: ${(props) => (props.error ? "2px solid #ba181b" : "none")};
   span {
     text-align: center;
     line-height: 55px;
@@ -285,7 +295,9 @@ export const Input = styled.input`
     color: #333;
     &::placeholder{
     color: #aaa;
-    font-weight: 500;}`;
+    font-weight: 500;}
+    
+    `;
 export const InputButton = styled.input`
   width: 150px;
   height: 50px;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineCaretDown } from "react-icons/ai";
+import { useAuth } from "../context/auth";
 import {
   NavBarContainer,
   BrandContainer,
@@ -14,6 +15,7 @@ const NavBar = () => {
   const imgURL =
     "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80";
   const [menu, setMenu] = useState<boolean>(false);
+  const { logout } = useAuth();
   return (
     <NavBarContainer>
       <BrandContainer>
@@ -35,7 +37,7 @@ const NavBar = () => {
           <ul>
             <li>Mi cuenta</li>
             <li>Mis favoritos</li>
-            <li>Cerrar Sesion</li>
+            <li onClick={() => logout()}>Cerrar Sesion</li>
           </ul>
         </MenuHiddenContainer>
       </UserSection>
