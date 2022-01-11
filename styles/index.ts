@@ -405,7 +405,7 @@ export const Pelicula = styled.div`
     vertical-align: top;
   }
   @media (min-width: 768px) {
-    min-width: 20%;
+    min-width: 28%;
   }
   &:hover {
     transform: scale(1.2);
@@ -420,7 +420,6 @@ export const Pelicula = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    // background-color: #a4161a;
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #a4161a);
     overflow: hidden;
     width: 100%;
@@ -463,7 +462,6 @@ export const HomeWraper = styled.main`
   background-color: #161a1d;
   width: 100%;
   height: fit-content;
-  //min-height: 100vh;
   color: white;
   margin: 0;
   display: grid;
@@ -511,16 +509,22 @@ export const SideContainer = styled.div`
   display: flex;
   flex-direction: column;      
   z-index: 99;
-  background-color: #161A1D ;
+  background-color: #161A1D ; 
   ul{     
+    position:fixed;
      padding: 15px;
-     position:fixed;
      top: 45%;
+     width: fit-content;
+     padding: 0 15px;
 li{
     padding: 8px;
     font-size: 1.125rem;
     letter-spacing: 1px;
     color: #F5F3F4;
+    cursor: pointer;
+    &:hover{
+      background: #A4161A;
+    }
 }
 
   }
@@ -616,8 +620,14 @@ export const MenuHiddenContainer = styled.div`
   }
 `;
 export const HomeRowWraper = styled.div`
-  width: 95%;
+  width: 100%;
+  max-width: 90vw;
   margin: 15px;
+  overflow: hidden;
+  margin: 0 auto;
+  @media (min-width: 768px) {
+    max-width: 78vw;
+  }
 `;
 
 /**HERO */
@@ -642,7 +652,6 @@ export const HeroColumn = styled.div`
   overflow: hidden;
   min-height: 55vh;
   margin-top: 1.25rem;
-  transition: 250ms ease;
   cursor: pointer;
   & > img {
     width: 100%;
@@ -661,10 +670,11 @@ export const HeroColumn = styled.div`
   &:nth-child(3n + 1) {
     margin-top: 3.25rem;
   }
+  transition: 250ms ease-in-out;
   &:hover {
-    flex: 30%;
+    flex: 2;
+    //transform: scaleX(1.125);
     z-index: 5;
-
     img {
       width: 100%;
     }

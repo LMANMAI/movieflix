@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   Tittle,
   BaseContainer,
@@ -7,7 +6,6 @@ import {
   Header,
   LogginButton,
   LandingContent,
-  BlurBox,
 } from "../styles";
 import { LadingBox } from "../components";
 import { useRouter } from "next/router";

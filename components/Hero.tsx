@@ -1,26 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { HeroWraper, HeroColumnContainer, HeroColumn } from "../styles";
-import axios from "../config/axios";
-import request from "../config/requests";
 
-const Hero = () => {
+const Hero = (props: { array }) => {
   const baseUrl = "https://image.tmdb.org/t/p/original/";
-  const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
-    const getData = async () => {
-      const dataRequest = await axios.get(request.fetchTrending);
-
-      setMovies(
-        dataRequest.data.results
-          .sort(() => {
-            return Math.random() - 0.5;
-          })
-          .slice(0, 8)
-      );
-    };
-    getData();
-  }, []);
+  const [movies, setMovies] = useState(props.array);
   return (
     <HeroWraper>
       <HeroColumnContainer>
