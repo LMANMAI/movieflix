@@ -8,6 +8,7 @@ interface IRQ {
   fetchHorrorMovies: string;
   fetchRomanceMovies: string;
   fetchDocumentaries: string;
+  fetchTVSeries: string;
 }
 const request: IRQ = {
   fetchTrending: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
@@ -18,5 +19,6 @@ const request: IRQ = {
   fetchHorrorMovies: `/discover/movie?api_key=${API_KEY}&with_genres=27`,
   fetchRomanceMovies: `/discover/movie?api_key=${API_KEY}&with_genres=10749`,
   fetchDocumentaries: `/discover/movie?api_key=${API_KEY}&with_genres=99`,
+  fetchTVSeries: `/tv/popular?api_key=${API_KEY}&language=en-US&page=1`,
 };
 export default request;

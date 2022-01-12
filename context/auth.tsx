@@ -27,16 +27,25 @@ const AuthContext = createContext<IAuth>({
 
 const AuthProvider: FC = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [name, setName] = useState("");
   const router = useRouter();
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
         router.push("/Home");
+        if (user.displayName === null || user.photoURL === null) {
+          updateProfile(user, {
+            displayName: name,
+            photoURL:
+              "https://firebasestorage.googleapis.com/v0/b/movieflix-d2afa.appspot.com/o/366be133850498.56ba69ac36858.png?alt=media&token=e68c0f3f-4016-43e3-b7c2-26b438628285",
+          });
+        }
       } else {
         setUser(null);
       }
     });
+    console.log(user);
     return unsubscribe;
   }, [user]);
 
@@ -45,11 +54,9 @@ const AuthProvider: FC = ({ children }) => {
       await createUserWithEmailAndPassword(auth, email, password).then(
         (userCredential) => {
           setUser(userCredential.user);
+          setName(username);
         }
       );
-      await updateProfile(user, {
-        displayName: username,
-      });
     } catch (error) {
       console.error(error);
     }

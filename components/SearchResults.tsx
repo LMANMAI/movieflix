@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import {motion} from 'framer-motion'
 const SearchResultsWraper = styled.div`
   width: 100%;
   min-height: 100vh;
@@ -56,6 +56,24 @@ const SearchResultsImgContainer = styled.div`
     -ms-transform: translate(-50%, -50%);
   }
 `;
+const container = {
+  hidden: { opacity: 1, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 0.95,
+    transition: {
+      delayChildren: 0.2,
+      staggerChildren: 0.1
+    }
+  }
+};
+const item = {
+  hidden: { y: 25, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1
+  }
+};
 const SearchResults = (props: { movies }) => {
   const baseUrl = "https://image.tmdb.org/t/p/original/";
   return (
@@ -63,7 +81,14 @@ const SearchResults = (props: { movies }) => {
       {props?.movies.map((movie) => {
         if (movie.backdrop_path || movie.poster_path) {
           return (
-            <SearchResultsImgContainer>
+            <motion.ul 
+              variants={container}
+              initial="hidden"
+              animate="visible"
+              >
+               <motion.li variants={item}>
+            <SearchResultsImgContainer key={movie.id}  >        
+             
               <img
                 src={
                   movie.backdrop_path
@@ -76,7 +101,11 @@ const SearchResults = (props: { movies }) => {
               <div className="overlay">
                 <div className="text">{movie.title || movie.name}</div>
               </div>
+             
+            
             </SearchResultsImgContainer>
+             </motion.li>
+            </motion.ul>
           );
         }
       })}

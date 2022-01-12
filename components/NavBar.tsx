@@ -12,10 +12,8 @@ import {
 } from "../styles";
 
 const NavBar = () => {
-  const imgURL =
-    "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80";
   const [menu, setMenu] = useState<boolean>(false);
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   return (
     <NavBarContainer>
       <BrandContainer>
@@ -26,7 +24,7 @@ const NavBar = () => {
 
       <UserSection>
         <ImgContainer>
-          <UserIMG src={imgURL} alt="user image" />
+          <UserIMG src={user?.photoURL} alt={user?.displayName} />
         </ImgContainer>
         <AiOutlineCaretDown
           className="menu_button"
@@ -36,7 +34,6 @@ const NavBar = () => {
         <MenuHiddenContainer menu={menu}>
           <ul>
             <li>Mi cuenta</li>
-            <li>Mis favoritos</li>
             <li onClick={() => logout()}>Cerrar Sesion</li>
           </ul>
         </MenuHiddenContainer>

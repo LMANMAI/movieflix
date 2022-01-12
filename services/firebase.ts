@@ -15,4 +15,3 @@ if (getApps().length) {
   app = initializeApp(firebaseConfig);
 }
 export default app;
-// const app = initializeApp(firebaseConfig);

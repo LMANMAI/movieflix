@@ -417,7 +417,7 @@ export const Pelicula = styled.div`
     vertical-align: top;
   }
   @media (min-width: 768px) {
-    min-width: 28%;
+    min-width: 25%;
   }
   &:hover {
     transform: scale(1.2);
