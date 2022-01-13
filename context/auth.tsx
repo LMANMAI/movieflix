@@ -66,10 +66,12 @@ const AuthProvider: FC = ({ children }) => {
       await signInWithEmailAndPassword(auth, email, password).then(
         (userCredential) => {
           setUser(userCredential.user);
+           router.push('/Home');
         }
       );
     } catch (error) {
       console.error(error);
+     
     }
   };
   const logout = async () => {

@@ -93,19 +93,26 @@ const Home = ({ dataJson }: IDataProps) => {
               <li
                 onClick={() => {
                   setMoviesSearched([{}]);
-                   setBusqueda('');
+                  setBusqueda('');
                   router.push("/Home");
+                  setMenu(false);
                 }}
               >
                 Inicio
               </li>
-              <li onClick={() => handleSideMovies(requests.fetchTVSeries)}>
+              <li onClick={() => {
+                handleSideMovies(requests.fetchTVSeries);
+                 setMenu(false);
+                 }}>
                 Series
               </li>
-              <li onClick={() => handleSideMovies(requests.fetchActionMovies)}>
+              <li onClick={() => {handleSideMovies(requests.fetchActionMovies); setMenu(false);}}>
                 Peliculas
               </li>
-              <li onClick={() => handleSideMovies(requests.fetchTrending)}>
+              <li onClick={() => {
+                handleSideMovies(requests.fetchTrending);
+                 setMenu(false);
+              }}>
                 Estrenos
               </li>
             </ul>

@@ -9,10 +9,17 @@ const SearchResultsWraper = styled.div`
   grid-row: 1 / 2;
   position: relative;
   background-color: #161a1d;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 5px;
+  ul{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(49%,1fr));
+    gap: 5px;
+  }
   padding: 1rem;
+  @media(min-width: 768px){
+    ul{
+      grid-template-columns: repeat(auto-fill, minmax(23%, 1fr));
+    }
+  }
 `;
 const SearchResultsImgContainer = styled.div`
   flex: 1;
@@ -62,7 +69,7 @@ const container = {
     opacity: 1,
     scale: 0.95,
     transition: {
-      delayChildren: 0.2,
+      delayChildren: 0.3,
       staggerChildren: 0.1
     }
   }
@@ -78,17 +85,17 @@ const SearchResults = (props: { movies }) => {
   const baseUrl = "https://image.tmdb.org/t/p/original/";
   return (
     <SearchResultsWraper>
+     <motion.ul 
+        variants={container}
+        initial="hidden"
+        animate="visible"
+      >
       {props?.movies.map((movie) => {
         if (movie.backdrop_path || movie.poster_path) {
           return (
-            <motion.ul 
-              variants={container}
-              initial="hidden"
-              animate="visible"
-              >
-               <motion.li variants={item}>
-            <SearchResultsImgContainer key={movie.id}  >        
-             
+           
+          <motion.li variants={item}  key={movie.id} >
+            <SearchResultsImgContainer >             
               <img
                 src={
                   movie.backdrop_path
@@ -105,10 +112,11 @@ const SearchResults = (props: { movies }) => {
             
             </SearchResultsImgContainer>
              </motion.li>
-            </motion.ul>
+          
           );
         }
       })}
+        </motion.ul>
     </SearchResultsWraper>
   );
 };
