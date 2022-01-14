@@ -45,6 +45,7 @@ const AuthProvider: FC = ({ children }) => {
         setUser(null);
       }
     });
+    console.log(user);
     return unsubscribe;
   }, [user]);
 
@@ -69,7 +70,10 @@ const AuthProvider: FC = ({ children }) => {
         }
       );
     } catch (error) {
-      console.error(error);
+      const errorCode = error.code;
+      const errorMsg = error.message;
+
+      console.log(`el error ${errorCode} da como mensaje: ${errorMsg}`);
     }
   };
   const logout = async () => {

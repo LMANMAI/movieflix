@@ -16,7 +16,7 @@ const LadingBox = (props: IBoxProps) => {
     >
       <h3>{props.tittle}</h3>
       <p>{props.subtittle}</p>
-      <img src={props.image} alt={props.tittle} />
+      <img src={props.image} alt={props.tittle} loading="lazy" />
     </Box>
   );
 };

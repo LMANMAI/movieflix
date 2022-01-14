@@ -74,7 +74,7 @@ export const LandingContent = styled.section`
   flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
-  padding: 2rem;
+  padding: 1rem;
   z-index: 1;
   position: relative;
 `;
@@ -298,13 +298,13 @@ export const Input = styled.input`
     font-weight: 500;}
     
     `;
-export const InputButton = styled.input`
+export const InputButton = styled.button`
   width: 150px;
   height: 50px;
   border: none;
   outline: none;
   border-radius: 50px;
-  cursor: pointer;
+
   background-color: #e50914;
   color: #fff;
   text-transform: uppercase;
@@ -312,8 +312,15 @@ export const InputButton = styled.input`
   margin: 10px 0;
   transition: 0.5ms;
   text-align: center;
-  &::hover {
+  &:hover {
     background-color: #b60a13;
+    cursor: pointer;
+  }
+  &:disabled {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed !important;
   }
 `;
 export const PanelsContainer = styled.div`

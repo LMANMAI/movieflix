@@ -2,5 +2,5 @@ module.exports = {
   env: {
     customKey: "my-value",
   },
-  compress: false,
+  compress: true,
 };

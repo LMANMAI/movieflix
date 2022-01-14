@@ -20,12 +20,12 @@ const Login = () => {
   const { registerFirebase, user, login } = useAuth();
   const [position, setPosition] = useState<boolean>(false);
   //States para los errores
-  const [errorname, setErrorName] = useState(false);
-  const [erroremail, setErrorEmail] = useState(false);
-  const [errorpassword, setErrorPassword] = useState(false);
-
-  const [erroremaillogin, setErrorEmailLogin] = useState(false);
-  const [errorpasswordlogin, setErrorPasswordLogin] = useState(false);
+  const [errorname, setErrorName] = useState<boolean>(false);
+  const [erroremail, setErrorEmail] = useState<boolean>(false);
+  const [errorpassword, setErrorPassword] = useState<boolean>(false);
+  const [erroremaillogin, setErrorEmailLogin] = useState<boolean>(false);
+  const [errorpasswordlogin, setErrorPasswordLogin] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(true);
   //ref para el register
   const nameRef = useRef(null);
   const emailRef = useRef(null);
@@ -55,8 +55,16 @@ const Login = () => {
   };
   const handlePosition = () => {
     setPosition(!position);
+    loginUser({
+      emaillogin: "",
+      passwordlogin: "",
+    });
+    registerUser({
+      username: "",
+      email: "",
+      password: "",
+    });
   };
-
   useEffect(() => {
     if (username !== "" && errorname === true) {
       setErrorName(false);
@@ -72,6 +80,21 @@ const Login = () => {
     }
     if (passwordlogin !== "" && errorpasswordlogin === true) {
       setErrorPasswordLogin(false);
+    }
+    setTimeout(() => {
+      setErrorName(false);
+      setErrorEmail(false);
+      setErrorPassword(false);
+      setErrorEmailLogin(false);
+      setErrorPasswordLogin(false);
+    }, 1000);
+    if (
+      (username !== "" && email !== "" && password !== "") ||
+      (emaillogin.trim() !== "" && passwordlogin.length >= 6)
+    ) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
     }
   }, [email, username, password, user, emaillogin, passwordlogin]);
 
@@ -104,18 +127,23 @@ const Login = () => {
     if (emaillogin.trim() === "") {
       setErrorEmail(true);
       setErrorMsg("El email es necesario");
-    }
-    if (passwordlogin.trim() === "") {
+      return;
+    } else if (passwordlogin.trim() === "") {
       setErrorPassword(true);
       setErrorMsg("La contraseña es necesaria ");
-    } else if (password.length < 6) {
+      return;
+    } else if (passwordlogin.length < 6) {
       setErrorPassword(true);
       setErrorMsg("La contraseña debe ser mayor a 6 caracteres ");
+      return;
     }
+
     loginUser({
       emaillogin: "",
       passwordlogin: "",
     });
+    setErrorPassword(false);
+    setErrorEmail(false);
     login(emaillogin, passwordlogin);
   };
   return (
@@ -158,7 +186,9 @@ const Login = () => {
                 onChange={(e) => handleChangeLogin(e)}
               />
             </InputField>
-            <InputButton type="submit" value="Entrar" />
+            <InputButton type="submit" disabled={disabled ? "disabled" : null}>
+              Entrar
+            </InputButton>
           </Formulario>
 
           <Formulario
@@ -210,7 +240,9 @@ const Login = () => {
                 placeholder="Contraseña"
               />
             </InputField>
-            <InputButton type="submit" value="Comenzar!" />
+            <InputButton type="submit" disabled={disabled ? "disabled" : null}>
+              Comenzar!{" "}
+            </InputButton>
           </Formulario>
         </SigninUpContainer>
       </FormContainer>
@@ -226,7 +258,9 @@ const Login = () => {
               id="sign-up-btn"
               value="Sign Up"
               onClick={() => handlePosition()}
-            />
+            >
+              Registrarme{" "}
+            </ButtonContent>
           </Content>
           <img className="image" src="/img/login2.svg" alt="login_image" />
         </PanelLeft>
@@ -239,9 +273,10 @@ const Login = () => {
             <ButtonContent
               className="btn transparent"
               id="sign-in-btn"
-              value="Sign In"
               onClick={() => handlePosition()}
-            />
+            >
+              Entrar a mi cuenta
+            </ButtonContent>
           </Content>
           <img className="image" src="/img/login1.svg" alt="login_image" />
         </PanelRight>
