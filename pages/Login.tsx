@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import { BiLockAlt, BiUser } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
 import { useAuth } from "../context/auth";
@@ -262,7 +263,7 @@ const Login = () => {
               Registrarme{" "}
             </ButtonContent>
           </Content>
-          <img className="image" src="/img/login2.svg" alt="login_image" />
+          <Image className="image" src="/img/login2.svg" alt="login_image" />
         </PanelLeft>
         <PanelRight className="panel panel_right" position={position}>
           <Content className="content">
@@ -278,7 +279,7 @@ const Login = () => {
               Entrar a mi cuenta
             </ButtonContent>
           </Content>
-          <img className="image" src="/img/login1.svg" alt="login_image" />
+          <Image className="image" src="/img/login1.svg" alt="login_image" />
         </PanelRight>
       </PanelsContainer>
     </Container>

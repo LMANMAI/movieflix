@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Box } from "../styles";
+import Image from "next/image";
+
 interface IBoxProps {
   image: string;
   tittle: string;
@@ -16,7 +18,7 @@ const LadingBox = (props: IBoxProps) => {
     >
       <h3>{props.tittle}</h3>
       <p>{props.subtittle}</p>
-      <img src={props.image} alt={props.tittle} loading="lazy" />
+      <Image src={props.image} alt={props.tittle} loading="lazy" />
     </Box>
   );
 };

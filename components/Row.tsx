@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import {
   RowWraper,
@@ -62,7 +63,7 @@ const Row = (props: { tittle: string; fetchURL: string }) => {
                 key={onemovie.id}
               >
                 <a href="#">
-                  <img
+                  <Image
                     loading="lazy"
                     src={`${baseUrl}${onemovie.backdrop_path}`}
                     alt={onemovie.title}
