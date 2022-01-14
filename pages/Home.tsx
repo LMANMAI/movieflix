@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 import axios from "axios";
 import WithPrivateRoute from "../routes/WithPrivateRoute";
 import { AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { NavBar, Hero, HomeRow, SearchResults } from "../components";
-import { useRouter } from "next/router";
+import { NavBar, Hero, HomeRow } from "../components";
+const SearchDynamic = dynamic(() => import("../components/SearchResults"));
+
 import requests from "../config/requests";
 import {
   HomeWraper,
@@ -136,7 +139,7 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
         </SideBarWraper>
         {busqueda !== "" ||
         (moviesearched !== undefined && moviesearched !== null) ? (
-          <SearchResults movies={moviesearched} />
+          <SearchDynamic movies={moviesearched} />
         ) : (
           <Main>
             <NavBar />

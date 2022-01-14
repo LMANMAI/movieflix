@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box } from "../styles";
 
 interface IBoxProps {
@@ -7,14 +7,8 @@ interface IBoxProps {
   subtittle: JSX.Element | string;
 }
 const LadingBox = (props: IBoxProps) => {
-  const [hovered, setHovered] = useState(false);
-  const toggleHover = () => setHovered(!hovered);
   return (
-    <Box
-      className={` ${hovered ? "animated" : "notanimated"} `}
-      onMouseEnter={toggleHover}
-      onMouseLeave={toggleHover}
-    >
+    <Box>
       <h3>{props.tittle}</h3>
       <p>{props.subtittle}</p>
 

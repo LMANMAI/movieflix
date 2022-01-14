@@ -35,9 +35,8 @@ export const LogginButton = styled.button`
   cursor: pointer;
 `;
 export const Box = styled.div`
-  min-width: 270px;
-  max-width: 510px;
-  width: 40%;
+  min-width: 270px; 
+  width: 45%;   
   min-height: 250px;
   height: 25vh;
   border-radius: 15px;
@@ -50,24 +49,38 @@ export const Box = styled.div`
   justify-content: center;
   text-align: center;
   transition: 0.5s 0.1s ease-in-out;
+  transition-delay: 0.15s;
   img {
     width: 30%;
     align-self: center;
     justify-self: center;
     transition: 0.5s 0.1s ease-in-out;
   }
-
+  @media(max-width: 768px){  
+   &{
+    width: 25%;
+    flex: 1;
+   }
+    img{
+     display: none;
+    }
+  }
   &:nth-child(2) {
     img {
       width: 15%;
     }
-  }
+  };
   &:hover{
+    cursor: pointer;     
+     img{
+      width: 40%;
+     }
     &:nth-child(2) {
     img {
       width: 20%;
     }
-  }
+  };
+ 
 `;
 export const LandingContent = styled.section`
   display: flex;
@@ -660,12 +673,13 @@ export const HeroWraper = styled.div`
 export const HeroColumnContainer = styled.div`
   display: flex;
   gap: 25px;
-  @media (max-width: 780px) {
+  overflow-x: hidden;
+  @media (min-width: 780px) {
     overflow-x: auto;
   }
 `;
 export const HeroColumn = styled.div`
-  min-width: 75vw;
+  min-width: 100vw;
   height: 75vh;
   flex: 1;
   overflow: hidden;
@@ -679,6 +693,7 @@ export const HeroColumn = styled.div`
     object-fit: cover;
   }
   @media (min-width: 768px) {
+    min-width: 100vw;
     min-width: 100px;
     height: 100%;
     margin-top: 1.25rem;
