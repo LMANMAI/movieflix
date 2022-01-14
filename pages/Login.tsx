@@ -263,7 +263,7 @@ const Login = () => {
               Registrarme{" "}
             </ButtonContent>
           </Content>
-          <Image className="image" src="/img/login2.svg" alt="login_image" />
+          <img className="image" src="/img/login2.svg" alt="login_image" />
         </PanelLeft>
         <PanelRight className="panel panel_right" position={position}>
           <Content className="content">
@@ -279,7 +279,7 @@ const Login = () => {
               Entrar a mi cuenta
             </ButtonContent>
           </Content>
-          <Image className="image" src="/img/login1.svg" alt="login_image" />
+          <img className="image" src="/img/login1.svg" alt="login_image" />
         </PanelRight>
       </PanelsContainer>
     </Container>
