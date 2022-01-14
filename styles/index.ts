@@ -602,8 +602,8 @@ export const UserSection = styled.div`
   }
 `;
 export const ImgContainer = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
 `;
 export const UserIMG = styled.img`
   width: 100%;
@@ -658,37 +658,43 @@ export const HeroColumnContainer = styled.div`
   }
 `;
 export const HeroColumn = styled.div`
-  min-width: 100px;
-  height: 100%;
+  min-width: 75vw;
+  height: 75vh;
   flex: 1;
   overflow: hidden;
   min-height: 55vh;
-  margin-top: 1.25rem;
   cursor: pointer;
+  transition-timing-function: ease-out;
+  transition: 0.21s;
   & > img {
     width: 100%;
     min-height: 65vh;
     object-fit: cover;
   }
-  &:first-child {
-    margin-top: 0 !important;
-  }
-  &:last-child {
-    margin-top: 0 !important;
-  }
-  &:nth-child(2n + 1) {
-    margin-top: 4rem;
-  }
-  &:nth-child(3n + 1) {
-    margin-top: 3.25rem;
-  }
-  transition: 250ms ease-in-out;
-  &:hover {
-    flex: 2;
-    //transform: scaleX(1.125);
-    z-index: 5;
-    img {
-      width: 100%;
+  @media (min-width: 768px) {
+    min-width: 100px;
+    height: 100%;
+    margin-top: 1.25rem;
+
+    &:first-child {
+      margin-top: 0 !important;
+    }
+    &:last-child {
+      margin-top: 0 !important;
+    }
+    &:nth-child(2n + 1) {
+      margin-top: 4rem;
+    }
+    &:nth-child(3n + 1) {
+      margin-top: 3.25rem;
+    }
+
+    &:hover {
+      flex: 2;
+      z-index: 5;
+      img {
+        width: 100%;
+      }
     }
   }
 `;

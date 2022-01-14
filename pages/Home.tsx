@@ -33,6 +33,7 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
   const [menu, setMenu] = useState<boolean>(false);
   const [busqueda, setBusqueda] = useState("");
   const [moviesearched, setMoviesSearched] = useState([{}]);
+  const [movieexits, setMovieExits] = useState(false);
   const router = useRouter();
   const sliceArray = dataJson.results
     .sort(() => {
@@ -94,12 +95,14 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
                   setBusqueda("");
                   setMenu(false);
                   setMoviesSearched([{}]);
+                  setMovieExits(false);
                 }}
               >
                 Inicio
               </li>
               <li
                 onClick={() => {
+                  setMovieExits(true);
                   setMenu(false);
                   router.push({
                     pathname: "/Home",
@@ -111,6 +114,7 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
               </li>
               <li
                 onClick={() => {
+                  setMovieExits(true);
                   setMenu(false);
                   router.push({
                     pathname: "/Home",
@@ -122,6 +126,7 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
               </li>
               <li
                 onClick={() => {
+                  setMovieExits(true);
                   setMenu(false);
                   router.push({
                     pathname: "/Home",
@@ -134,7 +139,7 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
             </ul>
           </SideContainer>
         </SideBarWraper>
-        {busqueda !== "" || moviesearched.length > 1 ? (
+        {busqueda !== "" || movieexits ? (
           <SearchResults movies={moviesearched} />
         ) : (
           <Main>

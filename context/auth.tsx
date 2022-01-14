@@ -45,7 +45,6 @@ const AuthProvider: FC = ({ children }) => {
         setUser(null);
       }
     });
-    console.log(user);
     return unsubscribe;
   }, [user]);
 
@@ -66,12 +65,11 @@ const AuthProvider: FC = ({ children }) => {
       await signInWithEmailAndPassword(auth, email, password).then(
         (userCredential) => {
           setUser(userCredential.user);
-           router.push('/Home');
+          router.push("/Home");
         }
       );
     } catch (error) {
       console.error(error);
-     
     }
   };
   const logout = async () => {
