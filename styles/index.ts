@@ -692,3 +692,65 @@ export const HeroColumn = styled.div`
     }
   }
 `;
+export const SearchResultsWraper = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  z-index: 5;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  position: relative;
+  background-color: #161a1d;
+  ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(49%, 1fr));
+    gap: 5px;
+  }
+  padding: 1rem;
+  @media (min-width: 768px) {
+    ul {
+      grid-template-columns: repeat(auto-fill, minmax(23%, 1fr));
+    }
+  }
+`;
+export const SearchResultsImgContainer = styled.div`
+  flex: 1;
+  height: 150px;
+  max-width: 250px;
+  overflow: hidden;
+  transition: 250ms ease-in-out;
+  img {
+    width: 100%;
+    vertical-align: top;
+  }
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.08);
+    transform-origin: center;
+    .overlay {
+      height: 50%;
+    }
+  }
+
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #161a1d);
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    transition: 0.5s ease;
+  }
+  .text {
+    white-space: nowrap;
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+  }
+`;

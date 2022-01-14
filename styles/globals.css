@@ -4,6 +4,7 @@
   src: local("Varela-Regular"),
     url("/fonts/Varela-Regular.ttf") format("truetype");
   font-weight: 100;
+  font-display: fallback;
 }
 html,
 body {

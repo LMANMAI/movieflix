@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { BiLockAlt, BiUser } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
 import { useAuth } from "../context/auth";
-import { useRouter } from "next/router";
 import {
   Container,
   FormContainer,

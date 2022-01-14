@@ -4,7 +4,7 @@ import axios from "axios";
 import WithPrivateRoute from "../routes/WithPrivateRoute";
 import { AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { NavBar, Hero, HomeRow, SearchResults } from "../components";
-import Link, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import requests from "../config/requests";
 import {
   HomeWraper,
@@ -15,7 +15,6 @@ import {
   InputSearch,
 } from "../styles";
 import { GetServerSideProps } from "next";
-import { useAuth } from "../context/auth";
 interface IDataProps {
   dataJson: {
     page: Number;
@@ -23,14 +22,17 @@ interface IDataProps {
     total_pages: Number;
     total_results: Number;
   };
-  prove: String;
+  dataSideMovie: {
+    page: Number;
+    results: [];
+    total_pages: Number;
+    total_results: Number;
+  };
 }
-const Home = ({ dataJson }: IDataProps) => {
+const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
   const [menu, setMenu] = useState<boolean>(false);
   const [busqueda, setBusqueda] = useState("");
   const [moviesearched, setMoviesSearched] = useState([{}]);
-  const [moviequery, setMovieQuery] = useState([{}]);
-  const { user } = useAuth();
   const router = useRouter();
   const sliceArray = dataJson.results
     .sort(() => {
@@ -43,26 +45,22 @@ const Home = ({ dataJson }: IDataProps) => {
       const requestSearch = await axios(
         `https://api.themoviedb.org/3/search/movie?api_key=ae57de85991d61a5ee42ca2c3dfd8558&query=${busqueda}`
       );
-      setMoviesSearched(requestSearch.data.results);
+      await setMoviesSearched(requestSearch.data.results);
     };
     if (busqueda || busqueda !== "") {
       handleSearch();
     }
   }, [busqueda, moviesearched]);
 
-  useEffect(()=> {
-    console.log('cambios en las peliculas');
-    setMoviesSearched(moviequery);
-  },[moviequery]);
+  useEffect(() => {
+    if (dataSideMovie) {
+      setMoviesSearched(dataSideMovie.results);
+    }
+  }, [dataSideMovie]);
   const handleChange = (e) => {
     setBusqueda(e.target.value);
   };
 
-  const handleSideMovies = async (searchType) => {
-    const req = await axios(`https://api.themoviedb.org/3${searchType}`);
-   setBusqueda('');
-    setMovieQuery(req.data.results)
-  };
   return (
     <>
       <Head>
@@ -93,32 +91,50 @@ const Home = ({ dataJson }: IDataProps) => {
               <li
                 onClick={() => {
                   setMoviesSearched([{}]);
-                  setBusqueda('');
-                  router.push("/Home");
+                  setBusqueda("");
                   setMenu(false);
+                  setMoviesSearched([{}]);
                 }}
               >
                 Inicio
               </li>
-              <li onClick={() => {
-                handleSideMovies(requests.fetchTVSeries);
-                 setMenu(false);
-                 }}>
+              <li
+                onClick={() => {
+                  setMenu(false);
+                  router.push({
+                    pathname: "/Home",
+                    query: { name: requests.fetchTVSeries },
+                  });
+                }}
+              >
                 Series
               </li>
-              <li onClick={() => {handleSideMovies(requests.fetchActionMovies); setMenu(false);}}>
+              <li
+                onClick={() => {
+                  setMenu(false);
+                  router.push({
+                    pathname: "/Home",
+                    query: { name: requests.fetchActionMovies },
+                  });
+                }}
+              >
                 Peliculas
               </li>
-              <li onClick={() => {
-                handleSideMovies(requests.fetchTrending);
-                 setMenu(false);
-              }}>
+              <li
+                onClick={() => {
+                  setMenu(false);
+                  router.push({
+                    pathname: "/Home",
+                    query: { name: requests.fetchTrending },
+                  });
+                }}
+              >
                 Estrenos
               </li>
             </ul>
           </SideContainer>
         </SideBarWraper>
-        {moviesearched.length > 2 || busqueda !== ""  ? (
+        {busqueda !== "" || moviesearched.length > 1 ? (
           <SearchResults movies={moviesearched} />
         ) : (
           <Main>
@@ -131,15 +147,24 @@ const Home = ({ dataJson }: IDataProps) => {
     </>
   );
 };
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   let dataRequest = await fetch(
     "https://api.themoviedb.org/3/trending/all/week?api_key=ae57de85991d61a5ee42ca2c3dfd8558&language=en-US"
   );
   let dataJson = await dataRequest.json();
+  let responseMovieQuery;
+
+  if (query.name) {
+    let movieQuery = await fetch(`https://api.themoviedb.org/3${query.name}`);
+    responseMovieQuery = await movieQuery.json();
+  } else {
+    responseMovieQuery = [{}];
+  }
 
   return {
     props: {
       dataJson: dataJson,
+      dataSideMovie: responseMovieQuery,
     },
   };
 };

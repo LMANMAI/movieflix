@@ -1,68 +1,7 @@
 import React from "react";
-import styled from "styled-components";
-import {motion} from 'framer-motion'
-const SearchResultsWraper = styled.div`
-  width: 100%;
-  min-height: 100vh;
-  z-index: 5;
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  position: relative;
-  background-color: #161a1d;
-  ul{
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(49%,1fr));
-    gap: 5px;
-  }
-  padding: 1rem;
-  @media(min-width: 768px){
-    ul{
-      grid-template-columns: repeat(auto-fill, minmax(23%, 1fr));
-    }
-  }
-`;
-const SearchResultsImgContainer = styled.div`
-  flex: 1;
-  height: 150px;
-  max-width: 250px;
-  overflow: hidden;
-  transition: 250ms ease-in-out;
-  img {
-    width: 100%;
-    vertical-align: top;
-  }
-  &:hover {
-    cursor: pointer;
-    transform: scale(1.08);
-    transform-origin: center;
-    .overlay {
-      height: 50%;
-    }
-  }
+import { SearchResultsWraper, SearchResultsImgContainer } from "../styles";
+import { motion } from "framer-motion";
 
-  .overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #161a1d);
-    overflow: hidden;
-    width: 100%;
-    height: 0;
-    transition: 0.5s ease;
-  }
-  .text {
-    white-space: nowrap;
-    color: white;
-    font-size: 12px;
-    position: absolute;
-    overflow: hidden;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-  }
-`;
 const container = {
   hidden: { opacity: 1, scale: 0 },
   visible: {
@@ -70,53 +9,45 @@ const container = {
     scale: 0.95,
     transition: {
       delayChildren: 0.3,
-      staggerChildren: 0.1
-    }
-  }
+      staggerChildren: 0.1,
+    },
+  },
 };
 const item = {
   hidden: { y: 25, opacity: 0 },
   visible: {
     y: 0,
-    opacity: 1
-  }
+    opacity: 1,
+  },
 };
 const SearchResults = (props: { movies }) => {
   const baseUrl = "https://image.tmdb.org/t/p/original/";
   return (
     <SearchResultsWraper>
-     <motion.ul 
-        variants={container}
-        initial="hidden"
-        animate="visible"
-      >
-      {props?.movies.map((movie) => {
-        if (movie.backdrop_path || movie.poster_path) {
-          return (
-           
-          <motion.li variants={item}  key={movie.id} >
-            <SearchResultsImgContainer >             
-              <img
-                src={
-                  movie.backdrop_path
-                    ? `${baseUrl}${movie.backdrop_path}`
-                    : `${baseUrl}${movie.poster_path}`
-                }
-                alt={movie.original_title}
-              />
+      <motion.ul variants={container} initial="hidden" animate="visible">
+        {props?.movies.map((movie) => {
+          if (movie.backdrop_path || movie.poster_path) {
+            return (
+              <motion.li variants={item} key={movie.id}>
+                <SearchResultsImgContainer>
+                  <img
+                    src={
+                      movie.backdrop_path
+                        ? `${baseUrl}${movie.backdrop_path}`
+                        : `${baseUrl}${movie.poster_path}`
+                    }
+                    alt={movie.original_title}
+                  />
 
-              <div className="overlay">
-                <div className="text">{movie.title || movie.name}</div>
-              </div>
-             
-            
-            </SearchResultsImgContainer>
-             </motion.li>
-          
-          );
-        }
-      })}
-        </motion.ul>
+                  <div className="overlay">
+                    <div className="text">{movie.title || movie.name}</div>
+                  </div>
+                </SearchResultsImgContainer>
+              </motion.li>
+            );
+          }
+        })}
+      </motion.ul>
     </SearchResultsWraper>
   );
 };
