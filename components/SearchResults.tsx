@@ -1,7 +1,7 @@
 import React from "react";
 import { SearchResultsWraper, SearchResultsImgContainer } from "../styles";
 import { motion } from "framer-motion";
-
+import Image from "next/image";
 const container = {
   hidden: { opacity: 1, scale: 0 },
   visible: {
@@ -30,7 +30,7 @@ const SearchResults = (props: { movies }) => {
             return (
               <motion.li variants={item} key={movie.id}>
                 <SearchResultsImgContainer>
-                  <img
+                  <Image
                     src={
                       movie.backdrop_path
                         ? `${baseUrl}${movie.backdrop_path}`
