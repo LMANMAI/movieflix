@@ -6,8 +6,9 @@ import axios from "axios";
 import WithPrivateRoute from "../routes/WithPrivateRoute";
 import { AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { NavBar, Hero, HomeRow } from "../components";
+import { useAuth } from "../context/auth";
 const SearchDynamic = dynamic(() => import("../components/SearchResults"));
-
+import Login from "./Login";
 import requests from "../config/requests";
 import {
   HomeWraper,
@@ -37,6 +38,7 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
   const [busqueda, setBusqueda] = useState("");
   const [moviesearched, setMoviesSearched] = useState([{}]);
   const router = useRouter();
+  const { user } = useAuth();
   const sliceArray = dataJson.results
     .sort(() => {
       return Math.random() - 0.5;
@@ -63,7 +65,7 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
   const handleChange = (e) => {
     setBusqueda(e.target.value);
   };
-
+  if (!user) return <Login />;
   return (
     <>
       <Head>
