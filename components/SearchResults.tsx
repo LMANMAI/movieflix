@@ -2,8 +2,9 @@ import React from "react";
 import { SearchResultsWraper, SearchResultsImgContainer } from "../styles";
 import { motion } from "framer-motion";
 
-const SearchResults = (props: { movies }) => {
+const SearchResults = ({ movies, searchParam }) => {
   const baseUrl = "https://image.tmdb.org/t/p/original/";
+
   const container = {
     hidden: { opacity: 1, scale: 0 },
     visible: {
@@ -24,30 +25,35 @@ const SearchResults = (props: { movies }) => {
   };
   return (
     <SearchResultsWraper>
-      <motion.ul variants={container} initial="hidden" animate="visible">
-        {props?.movies.map((movie) => {
-          if (movie.backdrop_path || movie.poster_path) {
-            return (
-              <motion.li variants={item} key={movie.id}>
-                <SearchResultsImgContainer>
-                  <img
-                    src={
-                      movie.backdrop_path
-                        ? `${baseUrl}${movie.backdrop_path}`
-                        : `${baseUrl}${movie.poster_path}`
-                    }
-                    alt={movie.original_title}
-                  />
+      {movies && movies.length > 0 ? (
+        <motion.ul variants={container} initial="hidden" animate="visible">
+          {movies &&
+            movies.map((movie) => {
+              if (movie.backdrop_path || movie.poster_path) {
+                return (
+                  <motion.li variants={item} key={movie.id}>
+                    <SearchResultsImgContainer>
+                      <img
+                        src={
+                          movie.backdrop_path
+                            ? `${baseUrl}${movie.backdrop_path}`
+                            : `${baseUrl}${movie.poster_path}`
+                        }
+                        alt={movie.original_title}
+                      />
 
-                  <div className="overlay">
-                    <div className="text">{movie.title || movie.name}</div>
-                  </div>
-                </SearchResultsImgContainer>
-              </motion.li>
-            );
-          }
-        })}
-      </motion.ul>
+                      <div className="overlay">
+                        <div className="text">{movie.title || movie.name}</div>
+                      </div>
+                    </SearchResultsImgContainer>
+                  </motion.li>
+                );
+              }
+            })}
+        </motion.ul>
+      ) : (
+        <>No se encontraron resultados, intente buscando otro titulo.</>
+      )}
     </SearchResultsWraper>
   );
 };

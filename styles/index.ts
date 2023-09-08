@@ -35,8 +35,8 @@ export const LogginButton = styled.button`
   cursor: pointer;
 `;
 export const Box = styled.div`
-  min-width: 270px; 
-  width: 45%;   
+  min-width: 270px;
+  width: 45%;
   min-height: 250px;
   height: 25vh;
   border-radius: 15px;
@@ -56,7 +56,7 @@ export const Box = styled.div`
     justify-self: center;
     transition: 0.5s 0.1s ease-in-out;
   }
-  @media(max-width: 768px){  
+  @media(max-width: 768px){
    &{
     width: 25%;
     flex: 1;
@@ -71,7 +71,7 @@ export const Box = styled.div`
     }
   };
   &:hover{
-    cursor: pointer;     
+    cursor: pointer;
      img{
       width: 40%;
      }
@@ -80,7 +80,7 @@ export const Box = styled.div`
       width: 20%;
     }
   };
- 
+
 `;
 export const LandingContent = styled.section`
   display: flex;
@@ -113,7 +113,7 @@ export const SigninUpContainer = styled.div`
   transition: 1s 0.7s ease-in-out;
 `;
 
-export const Container = styled(BaseContainer)`  
+export const Container = styled(BaseContainer)`
   &::before {
     content: "";
     position: absolute;
@@ -139,13 +139,24 @@ export const Container = styled(BaseContainer)`
   ${SigninUpContainer} {
     left: ${(props) => props.position && "25%"};
   }
+  .sing_up_form ,
+  .sing_in_form {
+    transition: all 250ms ease-in-out ;
+  }
   .sing_up_form {
     z-index: ${(props) => (props.position ? "1" : "2")};
     opacity: ${(props) => (props.position ? "0" : "1")};
+    transform:  ${(props) =>
+      props.position ? "translateX(100vw)" : "initial"};
+      border: 1px solid red;
   }
   .sing_in_form {
     z-index: ${(props) => (props.position ? "2" : "1")};
     opacity: ${(props) => (props.position ? "1" : "0")};
+
+   transform:  ${(props) =>
+     props.position ? "initial" : "translateX(-100vw)"};
+     border: 1px solid blue;
   }
   @media (max-width: 870px) {
     .container {
@@ -309,7 +320,7 @@ export const Input = styled.input`
     &::placeholder{
     color: #aaa;
     font-weight: 500;}
-    
+
     `;
 export const InputButton = styled.button`
   width: 150px;
@@ -491,7 +502,7 @@ export const ButtonCarrousel = styled.button`
 /***HOME */
 
 export const HomeWraper = styled.main`
-  background-color: #161a1d;
+  background-color: #1c2023;
   width: 100%;
   height: fit-content;
   color: white;
@@ -505,12 +516,87 @@ export const HomeWraper = styled.main`
 `;
 export const Main = styled.main`
   overflow-x: auto;
+  overflow-y: clip;
   max-width: 100vw;
   min-height: 100vh;
   grid-column: 2 / 3;
   grid-row: 1 / 2;
   @media (min-width: 480px) {
     max-width: 80vw;
+  }
+`;
+/**FOOTER */
+export const FooterComponent = styled.footer`
+  background-color: #111;
+  color: #757575;
+  padding: 40px 0;
+  font-size: 14px;
+  .footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .footer-logo img {
+    width: 150px;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .footer-links li {
+    margin: 0;
+    padding: 0;
+  }
+
+  .footer-links a {
+    text-decoration: none;
+    color: #757575;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: #fff;
+  }
+
+  .footer-language select,
+  .footer-country select {
+    background-color: #333;
+    border: none;
+    color: #757575;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+    outline: none;
+  }
+
+  .footer-country select {
+    width: 150px;
+  }
+
+  .footer-country,
+  .footer-language {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .footer-links {
+      flex-direction: column;
+    }
   }
 `;
 
@@ -539,14 +625,15 @@ export const SideContainer = styled.div`
   grid-column: 1 / 2;
   height: 100%;
   display: flex;
-  flex-direction: column;      
+  flex-direction: column;
   z-index: 99;
-  background-color: #161A1D ; 
-  ul{     
+  background-color: #0c0e0f ;
+  ul{
     position:fixed;
      padding: 15px;
      top: 45%;
-     width: fit-content;
+     width: 100%;
+     max-width: 230px;
      padding: 0 15px;
 li{
     padding: 8px;
@@ -565,11 +652,11 @@ li{
     position: fixed;
     width: 75%;
     z-index: 9;
-    background-color: #161a1d;
+    background-color: #0c0e0f;
     transition: 450ms ease-in-out;
     left: ${(props) => (props.position ? "0" : "-100%")};
   }
- 
+
   }
 `;
 export const SearchContainer = styled.div`
@@ -589,8 +676,9 @@ export const InputSearch = styled.input`
   color: white;
   background-color: transparent;
   &:focus {
-    .search_container {
-      border: 1px solid blue;
+    border: 1px solid #ba181b;
+    .search_container > svg {
+      background-color: #ba181b;
     }
   }
 `;
@@ -610,6 +698,9 @@ export const Brand = styled.h2`
   color: #ba181b;
   font-size: 1.125rem;
   text-align: center;
+  @media (min-width: 768px) {
+    text-align: initial;
+  }
 `;
 export const UserSection = styled.div`
   display: flex;
@@ -643,6 +734,10 @@ export const MenuHiddenContainer = styled.div`
   box-shadow: rgb(0 0 0 /50%) 0px 0px 18px 0px;
   transition: all 250ms ease-in-out;
   visibility: ${(props) => (props.menu ? "visible" : "hidden")};
+  ul {
+    width: 100%;
+    max-width: 230px;
+  }
   ul li {
     padding: 5px;
     cursor: pointer;

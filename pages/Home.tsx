@@ -5,9 +5,10 @@ import dynamic from "next/dynamic";
 import axios from "axios";
 import WithPrivateRoute from "../routes/WithPrivateRoute";
 import { AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { NavBar, Hero, HomeRow } from "../components";
+import { NavBar, Hero, HomeRow, Footer } from "../components";
 import { useAuth } from "../context/auth";
 const SearchDynamic = dynamic(() => import("../components/SearchResults"));
+
 import Login from "./Login";
 import requests from "../config/requests";
 import {
@@ -36,9 +37,10 @@ interface IDataProps {
 const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
   const [menu, setMenu] = useState<boolean>(false);
   const [busqueda, setBusqueda] = useState("");
-  const [moviesearched, setMoviesSearched] = useState([{}]);
+  const [moviesearched, setMoviesSearched] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
+
   const sliceArray = dataJson.results
     .sort(() => {
       return Math.random() - 0.5;
@@ -64,8 +66,25 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
   }, [dataSideMovie]);
   const handleChange = (e) => {
     setBusqueda(e.target.value);
+
+    if (e.target.value === "") {
+      setBusqueda("");
+      setMoviesSearched([]);
+      router.push("/Home");
+    }
   };
+  const clearSearch = () => {
+    setBusqueda("");
+    setMoviesSearched([]);
+  };
+  const navigateTo = (pathname, query = {}) => {
+    clearSearch();
+    setMenu(false);
+    router.push({ pathname, query });
+  };
+
   if (!user) return <Login />;
+
   return (
     <>
       <Head>
@@ -88,66 +107,50 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
                 type="text"
                 name="buscador"
                 placeholder="Buscar"
+                value={busqueda}
                 onChange={(e) => handleChange(e)}
               />
               <AiOutlineSearch />
             </SearchContainer>
             <ul>
-              <li
-                onClick={() => {
-                  setMoviesSearched([{}]);
-                  setBusqueda("");
-                  setMenu(false);
-                  setMoviesSearched(null);
-                }}
-              >
-                Inicio
-              </li>
-              <li
-                onClick={() => {
-                  setMenu(false);
-                  router.push({
-                    pathname: "/Home",
-                    query: { name: requests.fetchTVSeries },
-                  });
-                }}
-              >
-                Series
-              </li>
-              <li
-                onClick={() => {
-                  setMenu(false);
-                  router.push({
-                    pathname: "/Home",
-                    query: { name: requests.fetchActionMovies },
-                  });
-                }}
-              >
-                Peliculas
-              </li>
-              <li
-                onClick={() => {
-                  setMenu(false);
-                  router.push({
-                    pathname: "/Home",
-                    query: { name: requests.fetchTrending },
-                  });
-                }}
-              >
-                Estrenos
-              </li>
+              <ul>
+                <li onClick={() => navigateTo("/Home")}>Inicio</li>
+                <li
+                  onClick={() =>
+                    navigateTo("/Home", { name: requests.fetchTVSeries })
+                  }
+                >
+                  Series
+                </li>
+                <li
+                  onClick={() =>
+                    navigateTo("/Home", { name: requests.fetchActionMovies })
+                  }
+                >
+                  Peliculas
+                </li>
+                <li
+                  onClick={() =>
+                    navigateTo("/Home", { name: requests.fetchTrending })
+                  }
+                >
+                  Estrenos
+                </li>
+              </ul>
             </ul>
           </SideContainer>
         </SideBarWraper>
-        {busqueda !== "" ||
-        (moviesearched !== undefined && moviesearched !== null) ? (
-          <SearchDynamic movies={moviesearched} />
+        {moviesearched ? (
+          <SearchDynamic movies={moviesearched} searchParam={busqueda} />
         ) : (
-          <Main>
-            <NavBar />
-            <Hero array={sliceArray} />
-            <HomeRow />
-          </Main>
+          <div>
+            <Main>
+              <NavBar />
+              <Hero array={sliceArray} />
+              <HomeRow />
+            </Main>
+            <Footer />
+          </div>
         )}
       </HomeWraper>
     </>

@@ -242,11 +242,12 @@ const Login = () => {
               />
             </InputField>
             <InputButton type="submit" disabled={disabled ? "disabled" : null}>
-              Comenzar!{" "}
+              Comenzar!
             </InputButton>
           </Formulario>
         </SigninUpContainer>
       </FormContainer>
+
       <PanelsContainer className="panels-container">
         <PanelLeft className="panel panel_left" position={position}>
           <Content className="content">
@@ -265,6 +266,7 @@ const Login = () => {
           </Content>
           <img className="image" src="/img/login2.svg" alt="login_image" />
         </PanelLeft>
+
         <PanelRight className="panel panel_right" position={position}>
           <Content className="content">
             <h3>¿Ya tienes una cuenta?</h3>
