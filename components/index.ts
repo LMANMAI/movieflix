@@ -5,3 +5,4 @@ export { default as SearchResults } from "./SearchResults";
 export { default as Row } from "./Row";
 export { default as Hero } from "./Hero";
 export { default as Footer } from "./Footer";
+export { default as Layout } from "./Layout";

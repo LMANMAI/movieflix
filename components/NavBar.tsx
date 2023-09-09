@@ -3,7 +3,6 @@ import { AiOutlineCaretDown } from "react-icons/ai";
 import { useAuth } from "../context/auth";
 import {
   NavBarContainer,
-  BrandContainer,
   Brand,
   UserSection,
   ImgContainer,
@@ -11,16 +10,18 @@ import {
   MenuHiddenContainer,
 } from "../styles";
 
-const NavBar = () => {
+const NavBar = ({ children }) => {
   const [menu, setMenu] = useState<boolean>(false);
   const { user, logout } = useAuth();
   return (
     <NavBarContainer>
-      <BrandContainer>
+      <div>
         <Brand>
           Movie<span>FLIX</span>
         </Brand>
-      </BrandContainer>
+      </div>
+
+      <div className="menu__list_container">{children}</div>
 
       <UserSection>
         <ImgContainer>

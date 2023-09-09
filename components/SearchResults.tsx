@@ -1,59 +1,45 @@
 import React from "react";
 import { SearchResultsWraper, SearchResultsImgContainer } from "../styles";
-import { motion } from "framer-motion";
 
-const SearchResults = ({ movies, searchParam }) => {
+const SearchResults = ({ movies, loading }) => {
   const baseUrl = "https://image.tmdb.org/t/p/original/";
 
-  const container = {
-    hidden: { opacity: 1, scale: 0 },
-    visible: {
-      opacity: 1,
-      scale: 0.95,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.1,
-      },
-    },
-  };
-  const item = {
-    hidden: { y: 25, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-    },
-  };
-  return (
-    <SearchResultsWraper>
-      {movies && movies.length > 0 ? (
-        <motion.ul variants={container} initial="hidden" animate="visible">
-          {movies &&
-            movies.map((movie) => {
-              if (movie.backdrop_path || movie.poster_path) {
-                return (
-                  <motion.li variants={item} key={movie.id}>
-                    <SearchResultsImgContainer>
-                      <img
-                        src={
-                          movie.backdrop_path
-                            ? `${baseUrl}${movie.backdrop_path}`
-                            : `${baseUrl}${movie.poster_path}`
-                        }
-                        alt={movie.original_title}
-                      />
+  if ((!movies || movies.length === 0) && !loading) {
+    return (
+      <SearchResultsWraper layout={true}>
+        <div>
+          {loading
+            ? "loading"
+            : " No se encontraron datos, por favor intente buscar otro título. Disculpe las molestias."}
+        </div>
+      </SearchResultsWraper>
+    );
+  }
 
-                      <div className="overlay">
-                        <div className="text">{movie.title || movie.name}</div>
-                      </div>
-                    </SearchResultsImgContainer>
-                  </motion.li>
-                );
-              }
-            })}
-        </motion.ul>
-      ) : (
-        <>No se encontraron resultados, intente buscando otro titulo.</>
-      )}
+  return (
+    <SearchResultsWraper layout={movies && movies.length > 0 ? false : true}>
+      <ul>
+        {movies.map((movie) => {
+          if (movie.backdrop_path || movie.poster_path) {
+            return (
+              <li key={movie.id}>
+                <SearchResultsImgContainer>
+                  <img
+                    src={`${baseUrl}${
+                      movie.backdrop_path || movie.poster_path
+                    }`}
+                    alt={movie.original_title}
+                  />
+
+                  <div className="overlay">
+                    <div className="text">{movie.title || movie.name}</div>
+                  </div>
+                </SearchResultsImgContainer>
+              </li>
+            );
+          }
+        })}
+      </ul>
     </SearchResultsWraper>
   );
 };

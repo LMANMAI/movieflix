@@ -7,7 +7,9 @@ import WithPrivateRoute from "../routes/WithPrivateRoute";
 import { AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { NavBar, Hero, HomeRow, Footer } from "../components";
 import { useAuth } from "../context/auth";
-const SearchDynamic = dynamic(() => import("../components/SearchResults"));
+const SearchDynamic = dynamic(() => import("../components/SearchResults"), {
+  ssr: false, // Desactiva la representación del lado del servidor si no es necesario
+});
 
 import Login from "./Login";
 import requests from "../config/requests";
@@ -36,6 +38,7 @@ interface IDataProps {
 }
 const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
   const [menu, setMenu] = useState<boolean>(false);
+  const [loading, setloading] = useState<boolean>(false);
   const [busqueda, setBusqueda] = useState("");
   const [moviesearched, setMoviesSearched] = useState([]);
   const router = useRouter();
@@ -49,10 +52,14 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
 
   useEffect(() => {
     const handleSearch = async () => {
+      setloading(true);
       const requestSearch = await axios(
         `https://api.themoviedb.org/3/search/movie?api_key=ae57de85991d61a5ee42ca2c3dfd8558&query=${busqueda}`
       );
-      await setMoviesSearched(requestSearch.data.results);
+      if (requestSearch.data) {
+        setloading(false);
+        setMoviesSearched(requestSearch.data.results);
+      }
     };
     if (busqueda || busqueda !== "") {
       handleSearch();
@@ -64,9 +71,9 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
       setMoviesSearched(dataSideMovie.results);
     }
   }, [dataSideMovie]);
+
   const handleChange = (e) => {
     setBusqueda(e.target.value);
-
     if (e.target.value === "") {
       setBusqueda("");
       setMoviesSearched([]);
@@ -78,9 +85,14 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
     setMoviesSearched([]);
   };
   const navigateTo = (pathname, query = {}) => {
+    setloading(true);
     clearSearch();
-    setMenu(false);
     router.push({ pathname, query });
+    if (dataJson.results.length > 0) {
+      setTimeout(() => {
+        setloading(false);
+      }, 550);
+    }
   };
 
   if (!user) return <Login />;
@@ -88,70 +100,58 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
   return (
     <>
       <Head>
-        <title>movieFLIX</title>
+        <title>MovieFLIX</title>
       </Head>
       <HomeWraper>
-        <SideBarWraper position={menu}>
-          <AiOutlineMenu
-            className="svg_menu open"
-            onClick={() => setMenu(!menu)}
-          />
-          <SideContainer position={menu}>
-            <AiOutlineClose
-              className="svg_menu close"
-              onClick={() => setMenu(!menu)}
+        <NavBar>
+          <SearchContainer className="search_container">
+            <InputSearch
+              autocomplete="off"
+              type="text"
+              name="buscador"
+              placeholder="Buscar"
+              value={busqueda}
+              onChange={(e) => handleChange(e)}
             />
-            <SearchContainer className="search_container">
-              <InputSearch
-                autocomplete="off"
-                type="text"
-                name="buscador"
-                placeholder="Buscar"
-                value={busqueda}
-                onChange={(e) => handleChange(e)}
-              />
-              <AiOutlineSearch />
-            </SearchContainer>
-            <ul>
-              <ul>
-                <li onClick={() => navigateTo("/Home")}>Inicio</li>
-                <li
-                  onClick={() =>
-                    navigateTo("/Home", { name: requests.fetchTVSeries })
-                  }
-                >
-                  Series
-                </li>
-                <li
-                  onClick={() =>
-                    navigateTo("/Home", { name: requests.fetchActionMovies })
-                  }
-                >
-                  Peliculas
-                </li>
-                <li
-                  onClick={() =>
-                    navigateTo("/Home", { name: requests.fetchTrending })
-                  }
-                >
-                  Estrenos
-                </li>
-              </ul>
-            </ul>
-          </SideContainer>
-        </SideBarWraper>
-        {moviesearched ? (
-          <SearchDynamic movies={moviesearched} searchParam={busqueda} />
-        ) : (
-          <div>
-            <Main>
-              <NavBar />
+            <AiOutlineSearch />
+          </SearchContainer>
+          <ul className="menu__list">
+            <li onClick={() => navigateTo("/Home")}>Inicio</li>
+            <li
+              onClick={() =>
+                navigateTo("/Home", { name: requests.fetchTVSeries })
+              }
+            >
+              Series
+            </li>
+            <li
+              onClick={() =>
+                navigateTo("/Home", { name: requests.fetchActionMovies })
+              }
+            >
+              Peliculas
+            </li>
+            <li
+              onClick={() =>
+                navigateTo("/Home", { name: requests.fetchTrending })
+              }
+            >
+              Estrenos
+            </li>
+          </ul>
+          {/* </SideContainer>
+        </SideBarWraper> */}
+        </NavBar>
+        <Main>
+          {moviesearched ? (
+            <SearchDynamic movies={moviesearched} loading={loading} />
+          ) : (
+            <div>
               <Hero array={sliceArray} />
               <HomeRow />
-            </Main>
-            <Footer />
-          </div>
-        )}
+            </div>
+          )}
+        </Main>
       </HomeWraper>
     </>
   );

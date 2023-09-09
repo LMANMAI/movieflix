@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 export const BaseContainer = styled.div`
   position: relative;
   width: 100%;
@@ -442,7 +443,7 @@ export const Pelicula = styled.div`
   transition: 0.2s ease all;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
   position: relative;
-
+cursor: pointer;
   img {
     width: 100%;
     vertical-align: top;
@@ -501,14 +502,14 @@ export const ButtonCarrousel = styled.button`
 
 /***HOME */
 
-export const HomeWraper = styled.main`
+export const HomeWraper = styled.section`
   background-color: #1c2023;
   width: 100%;
   height: fit-content;
   color: white;
   margin: 0;
-  display: grid;
-  grid-template-rows: 1fr auto;
+  display: flex;
+  flex-direction: column;
   @media (min-width: 480px) {
     grid-template-columns: auto 2fr;
     grid-template: auto 1fr auto / auto 2fr;
@@ -521,6 +522,8 @@ export const Main = styled.main`
   min-height: 100vh;
   grid-column: 2 / 3;
   grid-row: 1 / 2;
+
+  margin: 0px auto;
   @media (min-width: 480px) {
     max-width: 80vw;
   }
@@ -531,6 +534,7 @@ export const FooterComponent = styled.footer`
   color: #757575;
   padding: 40px 0;
   font-size: 14px;
+  display: flex;
   .footer-content {
     max-width: 1100px;
     margin: 0 auto;
@@ -663,7 +667,9 @@ export const SearchContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 15%;
   width: 100%;
-  padding: 1rem 1.125rem;
+  margin: 1rem 1.125rem;
+  padding: 5px;
+  border-radius: 10px;
   align-items: center;
   svg {
     margin: 5px;
@@ -676,7 +682,7 @@ export const InputSearch = styled.input`
   color: white;
   background-color: transparent;
   &:focus {
-    border: 1px solid #ba181b;
+   
     .search_container > svg {
       background-color: #ba181b;
     }
@@ -689,11 +695,24 @@ export const NavBarContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  max-width: 80vw;
+ 
+.menu__list_container{  
+  display: flex;
+    flex-direction: row-reverse;
+  .menu__list {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    li{
+      cursor: pointer;
+    }
+  }
+}
+  
 `;
 
-export const BrandContainer = styled.div`
-  width: 100%;
-`;
+
 export const Brand = styled.h2`
   color: #ba181b;
   font-size: 1.125rem;
@@ -707,7 +726,7 @@ export const UserSection = styled.div`
   align-items: center;
   gap: 5px;
   position: absolute;
-  right: 45px;
+  right: 16vw;
   .menu_button {
     cursor: pointer;
   }
@@ -721,11 +740,11 @@ export const UserIMG = styled.img`
   border-radius: 100%;
 `;
 export const MenuHiddenContainer = styled.div`
-  border: 1px solid red;
+  
   padding: 7px;
   position: absolute;
   top: 60px;
-  right: 0;
+  right: 0vw;
   min-width: 150px;
   text-align: center;
   background-color: rgb(19, 19, 19);
@@ -822,9 +841,8 @@ export const SearchResultsWraper = styled.div`
   grid-column: 2 / 3;
   grid-row: 1 / 2;
   position: relative;
-  background-color: #161a1d;
   ul {
-    display: grid;
+    display: ${props => !props.layout ?'grid' :'flex'};
     grid-template-columns: repeat(auto-fill, minmax(49%, 1fr));
     gap: 5px;
   }
@@ -838,7 +856,6 @@ export const SearchResultsWraper = styled.div`
 export const SearchResultsImgContainer = styled.div`
   flex: 1;
   height: 150px;
-  max-width: 250px;
   overflow: hidden;
   transition: 250ms ease-in-out;
   img {
@@ -849,7 +866,7 @@ export const SearchResultsImgContainer = styled.div`
     cursor: pointer;
     transform: scale(1.08);
     transform-origin: center;
-    .overlay {
+    &>.overlay {
       height: 50%;
     }
   }
