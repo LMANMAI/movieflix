@@ -14,7 +14,14 @@ const MoviePage = ({ movie }) => {
       </Head>
       {(movie.title === "" && movie.backdrop_path === "") ||
       movie.success === false ? (
-        <div>
+        <div
+          style={{
+            padding: "10px 20px",
+            display: "flex",
+            alignItems: "center",
+            gap: "20px",
+          }}
+        >
           <DetailBackContent>
             <button onClick={() => router.back()} title="Volver">
               <IoChevronBackOutline />

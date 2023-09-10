@@ -861,12 +861,10 @@ export const HeroColumn = styled.div`
   }
 `;
 export const SearchResultsWraper = styled.div`
-  width: 100%;
-  max-width: 80vw;
+  width: 80vw;
+  margin: 0px auto;
   min-height: 100vh;
   z-index: 5;
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
   position: relative;
   ul {
     display: ${(props) => (!props.layout ? "grid" : "flex")};
