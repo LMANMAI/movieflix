@@ -443,7 +443,7 @@ export const Pelicula = styled.div`
   transition: 0.2s ease all;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
   position: relative;
-cursor: pointer;
+  cursor: pointer;
   img {
     width: 100%;
     vertical-align: top;
@@ -464,7 +464,7 @@ cursor: pointer;
     bottom: 0;
     left: 0;
     right: 0;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #a4161a);
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #111);
     overflow: hidden;
     width: 100%;
     height: 0;
@@ -485,7 +485,16 @@ cursor: pointer;
 export const ButtonCarrousel = styled.button`
   position: absolute;
   border: none;
-  background-color: rgba(0, 0, 0, 0.3);
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.03125) 6%,
+    rgba(3, 3, 0, 0.41780462184873945) 15%,
+    rgba(13, 12, 0, 0.7539390756302521) 25%,
+    rgba(17, 16, 0, 0.7483368347338936) 75%,
+    rgba(3, 3, 0, 0.4234068627450981) 84%,
+    rgba(0, 0, 0, 0.03405112044817926) 94%
+  );
   font-size: 2.125rem;
   height: calc(100% - 40px);
   top: calc(50%, 25%);
@@ -503,30 +512,21 @@ export const ButtonCarrousel = styled.button`
 /***HOME */
 
 export const HomeWraper = styled.section`
-  background-color: #1c2023;
+  background: #1c2023;
+  background: linear-gradient(0deg, rgba(17, 17, 17, 1) 0%, rgb(28 32 35) 45%);
   width: 100%;
   height: fit-content;
   color: white;
   margin: 0;
   display: flex;
   flex-direction: column;
-  @media (min-width: 480px) {
-    grid-template-columns: auto 2fr;
-    grid-template: auto 1fr auto / auto 2fr;
-  }
+  overflow: hidden;
 `;
 export const Main = styled.main`
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: clip;
-  max-width: 100vw;
   min-height: 100vh;
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-
   margin: 0px auto;
-  @media (min-width: 480px) {
-    max-width: 80vw;
-  }
 `;
 /**FOOTER */
 export const FooterComponent = styled.footer`
@@ -557,7 +557,15 @@ export const FooterComponent = styled.footer`
     flex-wrap: wrap;
     gap: 20px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 
   .footer-links li {
@@ -671,8 +679,16 @@ export const SearchContainer = styled.div`
   padding: 5px;
   border-radius: 10px;
   align-items: center;
+
+  max-width: 300px;
+  background: #333;
+
   svg {
     margin: 5px;
+  }
+
+  @media (max-width: 480px) {
+    display: none;
   }
 `;
 export const InputSearch = styled.input`
@@ -682,7 +698,6 @@ export const InputSearch = styled.input`
   color: white;
   background-color: transparent;
   &:focus {
-   
     .search_container > svg {
       background-color: #ba181b;
     }
@@ -696,23 +711,38 @@ export const NavBarContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   max-width: 80vw;
- 
-.menu__list_container{  
-  display: flex;
-    flex-direction: row-reverse;
-  .menu__list {
+  min-width: 80vw;
+  margin: 0px auto;
+  .menu__list_container {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    li{
-      cursor: pointer;
+    flex-direction: row-reverse;
+    flex-grow: 0.5;
+    justify-content: space-between;
+    .menu__list {
+      display: none;
+      li {
+        cursor: pointer;
+      }
+      @media (min-width: 768px) {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
     }
   }
-}
-  
 `;
-
-
+export const Menu = styled.div`
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  cursor: pointer;
+  .menu_icon {
+    display: block;
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+`;
 export const Brand = styled.h2`
   color: #ba181b;
   font-size: 1.125rem;
@@ -725,7 +755,7 @@ export const UserSection = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
-  position: absolute;
+  //position: absolute;
   right: 16vw;
   .menu_button {
     cursor: pointer;
@@ -740,11 +770,10 @@ export const UserIMG = styled.img`
   border-radius: 100%;
 `;
 export const MenuHiddenContainer = styled.div`
-  
   padding: 7px;
   position: absolute;
   top: 60px;
-  right: 0vw;
+  left: calc(80vw - 30px);
   min-width: 150px;
   text-align: center;
   background-color: rgb(19, 19, 19);
@@ -780,6 +809,7 @@ export const HomeRowWraper = styled.div`
 export const HeroWraper = styled.div`
   box-sizing: border-box;
   width: 100%;
+  max-width: 80vw;
   margin: 15px auto;
   padding: 1.125rem;
   height: fit-content;
@@ -788,9 +818,6 @@ export const HeroColumnContainer = styled.div`
   display: flex;
   gap: 25px;
   overflow-x: hidden;
-  @media (min-width: 780px) {
-    overflow-x: auto;
-  }
 `;
 export const HeroColumn = styled.div`
   min-width: 100vw;
@@ -836,13 +863,14 @@ export const HeroColumn = styled.div`
 `;
 export const SearchResultsWraper = styled.div`
   width: 100%;
+  max-width: 80vw;
   min-height: 100vh;
   z-index: 5;
   grid-column: 2 / 3;
   grid-row: 1 / 2;
   position: relative;
   ul {
-    display: ${props => !props.layout ?'grid' :'flex'};
+    display: ${(props) => (!props.layout ? "grid" : "flex")};
     grid-template-columns: repeat(auto-fill, minmax(49%, 1fr));
     gap: 5px;
   }
@@ -866,12 +894,15 @@ export const SearchResultsImgContainer = styled.div`
     cursor: pointer;
     transform: scale(1.08);
     transform-origin: center;
-    &>.overlay {
+    box-shadow: 11px -4px 86px -21px rgba(0, 0, 0, 0.93);
+    & > .overlay {
       height: 50%;
+      display: block;
     }
   }
 
   .overlay {
+    display: none;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -892,5 +923,44 @@ export const SearchResultsImgContainer = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
+  }
+`;
+
+/**DETAIL */
+export const DetailBackground = styled.div`
+  width: 100%;
+  background: url(${(props) => props.posterPath}) center/cover no-repeat;
+  height: 100vh;
+  #detail__container {
+    width: 100vw;
+    height: 100vh;
+    background: rgb(17, 17, 17);
+    background: linear-gradient(
+      0deg,
+      rgba(17, 17, 17, 1) 0%,
+      rgba(0, 0, 0, 0.3) 100%
+    );
+  }
+
+  .detail__info {
+    width: 80%;
+    height: 100vh;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 5rem;
+  }
+`;
+
+export const DetailBackContent = styled.div`
+  padding: 5px 0px;
+  button {
+    cursor: pointer;
+    border: none;
+    background: rgba(17, 16, 0, 0.7483368347338936);
+    padding: 5px;
+    border-radius: 100%;
+    color: white;
   }
 `;

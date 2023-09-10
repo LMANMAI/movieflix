@@ -4,23 +4,16 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import axios from "axios";
 import WithPrivateRoute from "../routes/WithPrivateRoute";
-import { AiOutlineSearch, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { NavBar, Hero, HomeRow, Footer } from "../components";
+import { AiOutlineSearch } from "react-icons/ai";
+import { NavBar, Hero, HomeRow } from "../components";
 import { useAuth } from "../context/auth";
 const SearchDynamic = dynamic(() => import("../components/SearchResults"), {
-  ssr: false, // Desactiva la representación del lado del servidor si no es necesario
+  ssr: false,
 });
 
 import Login from "./Login";
 import requests from "../config/requests";
-import {
-  HomeWraper,
-  Main,
-  SideBarWraper,
-  SideContainer,
-  SearchContainer,
-  InputSearch,
-} from "../styles";
+import { HomeWraper, Main, SearchContainer, InputSearch } from "../styles";
 import { GetServerSideProps } from "next";
 interface IDataProps {
   dataJson: {
@@ -116,7 +109,6 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
             <AiOutlineSearch />
           </SearchContainer>
           <ul className="menu__list">
-            <li onClick={() => navigateTo("/Home")}>Inicio</li>
             <li
               onClick={() =>
                 navigateTo("/Home", { name: requests.fetchTVSeries })
@@ -138,9 +130,8 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
             >
               Estrenos
             </li>
+            <li onClick={() => navigateTo("/Milista", {})}>Mi lista</li>
           </ul>
-          {/* </SideContainer>
-        </SideBarWraper> */}
         </NavBar>
         <Main>
           {moviesearched ? (

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import {
   RowWraper,
@@ -59,11 +58,8 @@ const Row = (props: { tittle: string; fetchURL: string }) => {
         >
           <Carrousel className="carrousel">
             {movie.map((onemovie) => (
-              <Link href={`/movie/${onemovie.id}`}>
-                <Pelicula
-                  className={`pelicula_${props.tittle}`}
-                  key={onemovie.id}
-                >
+              <Link href={`/movie/${onemovie.id}`} key={onemovie.id}>
+                <Pelicula className={`pelicula_${props.tittle}`}>
                   <img
                     loading="lazy"
                     src={`${baseUrl}${onemovie.backdrop_path}`}

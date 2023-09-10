@@ -1,23 +1,56 @@
 import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-
+import { DetailBackground, DetailBackContent } from "../../styles";
+import { IoChevronBackOutline } from "react-icons/io5";
 const MoviePage = ({ movie }) => {
+  const baseUrl = "https://image.tmdb.org/t/p/original/";
+
   const router = useRouter();
   return (
     <div>
       <Head>
         <title>{movie.title || "Movie Page"}</title>
       </Head>
-      <h1>Movie Details</h1>
-      {movie ? (
+      {(movie.title === "" && movie.backdrop_path === "") ||
+      movie.success === false ? (
         <div>
-          <h2>Title: {movie.title}</h2>
-          <p>Overview: {movie.overview}</p>
-          <p>Release Date: {movie.release_date}</p>
+          <DetailBackContent>
+            <button onClick={() => router.back()} title="Volver">
+              <IoChevronBackOutline />
+            </button>
+          </DetailBackContent>
+          <p>
+            Parece que ocurrio un problema al traer los datos te pedimos
+            disculpas.
+          </p>
         </div>
       ) : (
-        <p>Loading...</p>
+        <DetailBackground
+          posterPath={`${baseUrl}${movie.backdrop_path || movie.poster_path}`}
+        >
+          <div id="detail__container">
+            <div className="detail__info">
+              <DetailBackContent>
+                <button onClick={() => router.back()} title="Volver">
+                  <IoChevronBackOutline />
+                </button>
+              </DetailBackContent>
+
+              <section>
+                {movie ? (
+                  <div>
+                    <h2 style={{ fontSize: "50px" }}> {movie.title}</h2>
+                    <p style={{ margin: "10px" }}>{movie.overview}</p>
+                    <p>Release Date: {movie.release_date}</p>
+                  </div>
+                ) : (
+                  <p>Loading...</p>
+                )}
+              </section>
+            </div>
+          </div>
+        </DetailBackground>
       )}
     </div>
   );

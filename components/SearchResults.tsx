@@ -1,4 +1,6 @@
 import React from "react";
+import Link from "next/link";
+
 import { SearchResultsWraper, SearchResultsImgContainer } from "../styles";
 
 const SearchResults = ({ movies, loading }) => {
@@ -22,20 +24,22 @@ const SearchResults = ({ movies, loading }) => {
         {movies.map((movie) => {
           if (movie.backdrop_path || movie.poster_path) {
             return (
-              <li key={movie.id}>
-                <SearchResultsImgContainer>
-                  <img
-                    src={`${baseUrl}${
-                      movie.backdrop_path || movie.poster_path
-                    }`}
-                    alt={movie.original_title}
-                  />
+              <Link href={`/movie/${movie.id}`}>
+                <li key={movie.id}>
+                  <SearchResultsImgContainer>
+                    <img
+                      src={`${baseUrl}${
+                        movie.backdrop_path || movie.poster_path
+                      }`}
+                      alt={movie.original_title}
+                    />
 
-                  <div className="overlay">
-                    <div className="text">{movie.title || movie.name}</div>
-                  </div>
-                </SearchResultsImgContainer>
-              </li>
+                    <div className="overlay">
+                      <div className="text">{movie.title || movie.name}</div>
+                    </div>
+                  </SearchResultsImgContainer>
+                </li>
+              </Link>
             );
           }
         })}

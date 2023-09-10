@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import Link from "next/link";
+
 import { HeroWraper, HeroColumnContainer, HeroColumn } from "../styles";
 const Hero = (props: { array }) => {
   const baseUrl = "https://image.tmdb.org/t/p/original/";
@@ -6,9 +8,11 @@ const Hero = (props: { array }) => {
     <HeroWraper>
       <HeroColumnContainer>
         {props.array.map((movie) => (
-          <HeroColumn key={movie.id}>
-            <img src={`${baseUrl}${movie.poster_path}`} alt={movie.name} />
-          </HeroColumn>
+          <Link href={`/movie/${movie.id}`} key={movie.id}>
+            <HeroColumn>
+              <img src={`${baseUrl}${movie.poster_path}`} alt={movie.name} />
+            </HeroColumn>
+          </Link>
         ))}
       </HeroColumnContainer>
     </HeroWraper>
