@@ -30,7 +30,6 @@ interface IDataProps {
   };
 }
 const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
-  const [menu, setMenu] = useState<boolean>(false);
   const [loading, setloading] = useState<boolean>(false);
   const [busqueda, setBusqueda] = useState("");
   const [moviesearched, setMoviesSearched] = useState([]);

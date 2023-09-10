@@ -526,7 +526,6 @@ export const Main = styled.main`
   overflow-x: hidden;
   overflow-y: clip;
   min-height: 100vh;
-  margin: 0px auto;
 `;
 /**FOOTER */
 export const FooterComponent = styled.footer`
