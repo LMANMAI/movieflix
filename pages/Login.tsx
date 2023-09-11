@@ -16,6 +16,7 @@ import {
   Content,
   PanelRight,
   ButtonContent,
+  SignInContainer,
 } from "../styles";
 const Login = () => {
   const { registerFirebase, user, login } = useAuth();
@@ -151,7 +152,7 @@ const Login = () => {
   return (
     <Container className="container" position={position}>
       <FormContainer>
-        <SigninUpContainer>
+        <SignInContainer>
           <Formulario
             className="sing_up_form"
             onSubmit={(e) => handleSubmit(e)}
@@ -191,7 +192,9 @@ const Login = () => {
               Entrar
             </InputButton>
           </Formulario>
+        </SignInContainer>
 
+        <SigninUpContainer>
           <Formulario
             className="sing_in_form"
             onSubmit={(e) => handleRegister(e)}

@@ -101,17 +101,40 @@ export const BlurBox = styled.div`
   z-index: 2;
   filter: blur(4px) !important;
 `;
-//Login Page
+
+//Registro Page
 export const SigninUpContainer = styled.div`
   position: absolute;
   top: 50%;
-  left: 75%;
-  transform: translate(-50%, -50%);
-  width: 50%;
+  left: -55%;
   display: grid;
   grid-template-columns: 1fr;
   z-index: 5;
   transition: 1s 0.7s ease-in-out;
+  transform: translate(-75%, -25%);
+  width: 100%;
+
+  @media (min-width: 768px) {
+    transform: translate(-50%, -50%);
+    width: 50%;
+  }
+`;
+//Ingreso Page
+export const SignInContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 75%;
+  transform: translate(-75%, -25%);
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  z-index: 5;
+  transition: 1s 0.7s ease-in-out;
+
+  @media (min-width: 768px) {
+    transform: translate(-50%, -50%);
+    width: 50%;
+  }
 `;
 
 export const Container = styled(BaseContainer)`
@@ -140,24 +163,31 @@ export const Container = styled(BaseContainer)`
   ${SigninUpContainer} {
     left: ${(props) => props.position && "25%"};
   }
+  ${SignInContainer} {
+    left: ${(props) => props.position && "100%"};
+  }
   .sing_up_form ,
   .sing_in_form {
+   
     transition: all 250ms ease-in-out ;
   }
   .sing_up_form {
+    transition-delay: 650ms;
     z-index: ${(props) => (props.position ? "1" : "2")};
     opacity: ${(props) => (props.position ? "0" : "1")};
-    transform:  ${(props) =>
-      props.position ? "translateX(100vw)" : "initial"};
-      border: 1px solid red;
+     transform:  ${(props) =>
+       props.position ? "translateX(100vw)" : "initial"};
+    
   }
   .sing_in_form {
+    transition-delay: 350ms;
     z-index: ${(props) => (props.position ? "2" : "1")};
     opacity: ${(props) => (props.position ? "1" : "0")};
 
    transform:  ${(props) =>
      props.position ? "initial" : "translateX(-100vw)"};
-     border: 1px solid blue;
+     paddding: 5px;
+    
   }
   @media (max-width: 870px) {
     .container {
