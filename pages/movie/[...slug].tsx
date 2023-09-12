@@ -35,9 +35,7 @@ const MoviePage = ({ movie }) => {
   const agregarItem = async (nuevoItemData, cdname) => {
     verificarExistenciaPelicula();
     try {
-      setDisplay(true);
       await setDoc(doc(db, cdname, movie.title), nuevoItemData);
-      setMsg("¡Agregado!");
     } catch (error) {}
   };
 
@@ -108,12 +106,14 @@ const MoviePage = ({ movie }) => {
                               //elimino
                               eliminarPelicula();
                             } else {
+                              setDisplay(true);
+                              setMsg("¡Agregado!");
                               agregarItem({ movieid: movie.id }, user.email);
                             }
 
                             setTimeout(() => {
                               setDisplay(false);
-                            }, 2000);
+                            }, 4000);
                           }}
                           title={
                             existe
