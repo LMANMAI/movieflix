@@ -29,9 +29,7 @@ const MoviePage = ({ movie }) => {
       } else {
         setExistItem(false);
       }
-    } catch (error) {
-      console.error("Error al verificar la película:", error);
-    }
+    } catch (error) {}
   };
 
   const agregarItem = async (nuevoItemData, cdname) => {
@@ -156,7 +154,6 @@ export async function getServerSideProps({ query }) {
       },
     };
   } catch (error) {
-    console.error("Error fetching movie data:", error);
     return {
       props: {
         movie: null,
