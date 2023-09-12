@@ -1,53 +1,57 @@
 import React from "react";
-import { SearchResultsWraper, SearchResultsImgContainer } from "../styles";
-import { motion } from "framer-motion";
+import Link from "next/link";
+import Spinner from "./Spiner";
 
-const SearchResults = (props: { movies }) => {
+import { SearchResultsWraper, SearchResultsImgContainer } from "../styles";
+
+const SearchResults = ({ movies, loading }) => {
   const baseUrl = "https://image.tmdb.org/t/p/original/";
-  const container = {
-    hidden: { opacity: 1, scale: 0 },
-    visible: {
-      opacity: 1,
-      scale: 0.95,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.1,
-      },
-    },
-  };
-  const item = {
-    hidden: { y: 25, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-    },
-  };
+
+  if (loading) {
+    return (
+      <SearchResultsWraper layout={true}>
+        <Spinner />
+      </SearchResultsWraper>
+    );
+  }
+
+  if (!movies || movies.length === 0) {
+    return (
+      <SearchResultsWraper layout={true}>
+        <div>
+          No se encontraron datos, por favor intente buscar otro título.
+          Disculpe las molestias.
+        </div>
+      </SearchResultsWraper>
+    );
+  }
+
   return (
-    <SearchResultsWraper>
-      <motion.ul variants={container} initial="hidden" animate="visible">
-        {props?.movies.map((movie) => {
+    <SearchResultsWraper layout={false}>
+      <ul>
+        {movies.map((movie) => {
           if (movie.backdrop_path || movie.poster_path) {
             return (
-              <motion.li variants={item} key={movie.id}>
-                <SearchResultsImgContainer>
-                  <img
-                    src={
-                      movie.backdrop_path
-                        ? `${baseUrl}${movie.backdrop_path}`
-                        : `${baseUrl}${movie.poster_path}`
-                    }
-                    alt={movie.original_title}
-                  />
+              <Link key={movie.id} href={`/movie/${movie.id}`}>
+                <li>
+                  <SearchResultsImgContainer>
+                    <img
+                      src={`${baseUrl}${
+                        movie.backdrop_path || movie.poster_path
+                      }`}
+                      alt={movie.original_title}
+                    />
 
-                  <div className="overlay">
-                    <div className="text">{movie.title || movie.name}</div>
-                  </div>
-                </SearchResultsImgContainer>
-              </motion.li>
+                    <div className="overlay">
+                      <div className="text">{movie.title || movie.name}</div>
+                    </div>
+                  </SearchResultsImgContainer>
+                </li>
+              </Link>
             );
           }
         })}
-      </motion.ul>
+      </ul>
     </SearchResultsWraper>
   );
 };

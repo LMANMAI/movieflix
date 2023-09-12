@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 export const BaseContainer = styled.div`
   position: relative;
   width: 100%;
@@ -35,8 +36,8 @@ export const LogginButton = styled.button`
   cursor: pointer;
 `;
 export const Box = styled.div`
-  min-width: 270px; 
-  width: 45%;   
+  min-width: 270px;
+  width: 45%;
   min-height: 250px;
   height: 25vh;
   border-radius: 15px;
@@ -56,7 +57,7 @@ export const Box = styled.div`
     justify-self: center;
     transition: 0.5s 0.1s ease-in-out;
   }
-  @media(max-width: 768px){  
+  @media(max-width: 768px){
    &{
     width: 25%;
     flex: 1;
@@ -71,7 +72,7 @@ export const Box = styled.div`
     }
   };
   &:hover{
-    cursor: pointer;     
+    cursor: pointer;
      img{
       width: 40%;
      }
@@ -80,7 +81,7 @@ export const Box = styled.div`
       width: 20%;
     }
   };
- 
+
 `;
 export const LandingContent = styled.section`
   display: flex;
@@ -100,20 +101,43 @@ export const BlurBox = styled.div`
   z-index: 2;
   filter: blur(4px) !important;
 `;
-//Login Page
+
+//Registro Page
 export const SigninUpContainer = styled.div`
   position: absolute;
   top: 50%;
-  left: 75%;
-  transform: translate(-50%, -50%);
-  width: 50%;
+  left: -55%;
   display: grid;
   grid-template-columns: 1fr;
   z-index: 5;
   transition: 1s 0.7s ease-in-out;
+  transform: translate(-75%, -25%);
+  width: 100%;
+
+  @media (min-width: 768px) {
+    transform: translate(-50%, -50%);
+    width: 50%;
+  }
+`;
+//Ingreso Page
+export const SignInContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 75%;
+  transform: translate(-75%, -25%);
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  z-index: 5;
+  transition: 1s 0.7s ease-in-out;
+
+  @media (min-width: 768px) {
+    transform: translate(-50%, -50%);
+    width: 50%;
+  }
 `;
 
-export const Container = styled(BaseContainer)`  
+export const Container = styled(BaseContainer)`
   &::before {
     content: "";
     position: absolute;
@@ -134,18 +158,37 @@ export const Container = styled(BaseContainer)`
     width: 100%;
     transition:  1.1s ease-in-out;
     transition-delay: 0.6s;
+    filter: drop-shadow(10px 10px 10px #222);
   }
 
   ${SigninUpContainer} {
     left: ${(props) => props.position && "25%"};
   }
+  ${SignInContainer} {
+    left: ${(props) => props.position && "100%"};
+  }
+  .sing_up_form ,
+  .sing_in_form {
+   
+    transition: all 250ms ease-in-out ;
+  }
   .sing_up_form {
+    transition-delay: 350ms;
     z-index: ${(props) => (props.position ? "1" : "2")};
     opacity: ${(props) => (props.position ? "0" : "1")};
+     transform:  ${(props) =>
+       props.position ? "translateX(100vw)" : "initial"};
+    
   }
   .sing_in_form {
+    transition-delay: 350ms;
     z-index: ${(props) => (props.position ? "2" : "1")};
     opacity: ${(props) => (props.position ? "1" : "0")};
+
+   transform:  ${(props) =>
+     props.position ? "initial" : "translateX(-100vw)"};
+     paddding: 5px;
+    
   }
   @media (max-width: 870px) {
     .container {
@@ -167,6 +210,7 @@ export const Container = styled(BaseContainer)`
       width: 200px;
       transition:  0.9s ease-in-out;
       transition-delay: 0.6s;
+     
     }
     ${SigninUpContainer} {
       width: 100%;
@@ -272,11 +316,12 @@ export const Formulario = styled.form`
   transition: 0.2s 0.7s ease-in-out;
   .error {
     background: #a4161a;
-    padding: 1rem 8px;
+    padding: 0.75rem 8px;
     border-radius: 15px;
     color: white;
     text-align: center;
     font-size: 14px;
+    margin-bottom: 2rem;
   }
 `;
 export const InputField = styled.div`
@@ -299,7 +344,7 @@ export const InputField = styled.div`
   }
 `;
 export const Input = styled.input`
- background: none;
+    background: none;
     outline: none;
     border: none;
     line-height: 1;
@@ -309,7 +354,7 @@ export const Input = styled.input`
     &::placeholder{
     color: #aaa;
     font-weight: 500;}
-    
+
     `;
 export const InputButton = styled.button`
   width: 150px;
@@ -431,7 +476,7 @@ export const Pelicula = styled.div`
   transition: 0.2s ease all;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
   position: relative;
-
+  cursor: pointer;
   img {
     width: 100%;
     vertical-align: top;
@@ -452,7 +497,7 @@ export const Pelicula = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #a4161a);
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #111);
     overflow: hidden;
     width: 100%;
     height: 0;
@@ -473,7 +518,16 @@ export const Pelicula = styled.div`
 export const ButtonCarrousel = styled.button`
   position: absolute;
   border: none;
-  background-color: rgba(0, 0, 0, 0.3);
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.03125) 6%,
+    rgba(3, 3, 0, 0.41780462184873945) 15%,
+    rgba(13, 12, 0, 0.7539390756302521) 25%,
+    rgba(17, 16, 0, 0.7483368347338936) 75%,
+    rgba(3, 3, 0, 0.4234068627450981) 84%,
+    rgba(0, 0, 0, 0.03405112044817926) 94%
+  );
   font-size: 2.125rem;
   height: calc(100% - 40px);
   top: calc(50%, 25%);
@@ -490,27 +544,103 @@ export const ButtonCarrousel = styled.button`
 
 /***HOME */
 
-export const HomeWraper = styled.main`
-  background-color: #161a1d;
+export const HomeWraper = styled.section`
+  background: #1c2023;
+  background: linear-gradient(0deg, rgba(17, 17, 17, 1) 0%, rgb(28 32 35) 45%);
   width: 100%;
   height: fit-content;
   color: white;
   margin: 0;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  @media (min-width: 480px) {
-    grid-template-columns: auto 2fr;
-    grid-template: auto 1fr auto / auto 2fr;
-  }
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 `;
 export const Main = styled.main`
-  overflow-x: auto;
-  max-width: 100vw;
+  overflow-x: hidden;
+  overflow-y: clip;
   min-height: 100vh;
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  @media (min-width: 480px) {
-    max-width: 80vw;
+`;
+/**FOOTER */
+export const FooterComponent = styled.footer`
+  background-color: #111;
+  color: #757575;
+  padding: 40px 0;
+  font-size: 14px;
+  display: flex;
+  .footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .footer-logo img {
+    width: 150px;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .footer-links li {
+    margin: 0;
+    padding: 0;
+  }
+
+  .footer-links a {
+    text-decoration: none;
+    color: #757575;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: #fff;
+  }
+
+  .footer-language select,
+  .footer-country select {
+    background-color: #333;
+    border: none;
+    color: #757575;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+    outline: none;
+  }
+
+  .footer-country select {
+    width: 150px;
+  }
+
+  .footer-country,
+  .footer-language {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .footer-links {
+      flex-direction: column;
+    }
   }
 `;
 
@@ -539,14 +669,15 @@ export const SideContainer = styled.div`
   grid-column: 1 / 2;
   height: 100%;
   display: flex;
-  flex-direction: column;      
+  flex-direction: column;
   z-index: 99;
-  background-color: #161A1D ; 
-  ul{     
+  background-color: #0c0e0f ;
+  ul{
     position:fixed;
      padding: 15px;
      top: 45%;
-     width: fit-content;
+     width: 100%;
+     max-width: 230px;
      padding: 0 15px;
 li{
     padding: 8px;
@@ -565,21 +696,31 @@ li{
     position: fixed;
     width: 75%;
     z-index: 9;
-    background-color: #161a1d;
+    background-color: #0c0e0f;
     transition: 450ms ease-in-out;
     left: ${(props) => (props.position ? "0" : "-100%")};
   }
- 
+
   }
 `;
 export const SearchContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 15%;
   width: 100%;
-  padding: 1rem 1.125rem;
+  margin: 1rem 1.125rem;
+  padding: 5px;
+  border-radius: 10px;
   align-items: center;
+
+  max-width: 300px;
+  background: #333;
+
   svg {
     margin: 5px;
+  }
+
+  @media (max-width: 480px) {
+    display: none;
   }
 `;
 export const InputSearch = styled.input`
@@ -589,8 +730,8 @@ export const InputSearch = styled.input`
   color: white;
   background-color: transparent;
   &:focus {
-    .search_container {
-      border: 1px solid blue;
+    .search_container > svg {
+      background-color: #ba181b;
     }
   }
 `;
@@ -601,22 +742,71 @@ export const NavBarContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  max-width: 80vw;
+  min-width: 80vw;
+  margin: 0px auto;
+  .menu__list_container {
+  }
 `;
 
-export const BrandContainer = styled.div`
-  width: 100%;
+export const MenuListContainer = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  flex-grow: 0.5;
+  justify-content: space-between;
+  .menu__list {
+    font-size: 13px;
+    display: ${(props) => (props.display ? "block" : "none")};
+    position: absolute;
+    z-index: 9;
+    left: 12vw;
+    top: 12vw;
+    background-color: #222;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 8px;
+
+    li {
+      cursor: pointer;
+      padding: 7px 10px;
+    }
+    @media (min-width: 768px) {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      position: inherit;
+      border: none;
+      background: transparent;
+      padding: inherit;
+    }
+  }
+`;
+export const Menu = styled.div`
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  cursor: pointer;
+  .menu_icon {
+    display: block;
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
 `;
 export const Brand = styled.h2`
   color: #ba181b;
   font-size: 1.125rem;
   text-align: center;
+  @media (min-width: 768px) {
+    text-align: initial;
+  }
 `;
 export const UserSection = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
-  position: absolute;
-  right: 45px;
+  //position: absolute;
+  right: 16vw;
   .menu_button {
     cursor: pointer;
   }
@@ -630,11 +820,10 @@ export const UserIMG = styled.img`
   border-radius: 100%;
 `;
 export const MenuHiddenContainer = styled.div`
-  border: 1px solid red;
   padding: 7px;
   position: absolute;
   top: 60px;
-  right: 0;
+  left: calc(80vw - 30px);
   min-width: 150px;
   text-align: center;
   background-color: rgb(19, 19, 19);
@@ -643,6 +832,10 @@ export const MenuHiddenContainer = styled.div`
   box-shadow: rgb(0 0 0 /50%) 0px 0px 18px 0px;
   transition: all 250ms ease-in-out;
   visibility: ${(props) => (props.menu ? "visible" : "hidden")};
+  ul {
+    width: 100%;
+    max-width: 230px;
+  }
   ul li {
     padding: 5px;
     cursor: pointer;
@@ -666,6 +859,7 @@ export const HomeRowWraper = styled.div`
 export const HeroWraper = styled.div`
   box-sizing: border-box;
   width: 100%;
+  max-width: 80vw;
   margin: 15px auto;
   padding: 1.125rem;
   height: fit-content;
@@ -674,9 +868,6 @@ export const HeroColumnContainer = styled.div`
   display: flex;
   gap: 25px;
   overflow-x: hidden;
-  @media (min-width: 780px) {
-    overflow-x: auto;
-  }
 `;
 export const HeroColumn = styled.div`
   min-width: 100vw;
@@ -721,15 +912,13 @@ export const HeroColumn = styled.div`
   }
 `;
 export const SearchResultsWraper = styled.div`
-  width: 100%;
+  width: 80vw;
+  margin: 0px auto;
   min-height: 100vh;
   z-index: 5;
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
   position: relative;
-  background-color: #161a1d;
   ul {
-    display: grid;
+    display: ${(props) => (!props.layout ? "grid" : "flex")};
     grid-template-columns: repeat(auto-fill, minmax(49%, 1fr));
     gap: 5px;
   }
@@ -743,7 +932,6 @@ export const SearchResultsWraper = styled.div`
 export const SearchResultsImgContainer = styled.div`
   flex: 1;
   height: 150px;
-  max-width: 250px;
   overflow: hidden;
   transition: 250ms ease-in-out;
   img {
@@ -754,12 +942,15 @@ export const SearchResultsImgContainer = styled.div`
     cursor: pointer;
     transform: scale(1.08);
     transform-origin: center;
-    .overlay {
+    box-shadow: 11px -4px 86px -21px rgba(0, 0, 0, 0.93);
+    & > .overlay {
       height: 50%;
+      display: block;
     }
   }
 
   .overlay {
+    display: none;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -780,5 +971,74 @@ export const SearchResultsImgContainer = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
+  }
+`;
+
+/**DETAIL */
+export const DetailBackground = styled.div`
+  width: 100%;
+  background: url(${(props) => props.posterPath}) center/cover no-repeat;
+  height: 100vh;
+  transition: display 250ms ease;
+  #detail__container {
+    width: 100vw;
+    height: 100vh;
+    background: rgb(17, 17, 17);
+    background: linear-gradient(
+      0deg,
+      rgba(17, 17, 17, 1) 0%,
+      rgba(0, 0, 0, 0.3) 100%
+    );
+  }
+
+  .detail__info {
+    width: 80%;
+    height: 100vh;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 5rem;
+  }
+  .movie__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    button {
+      outline: none;
+      border: none;
+      border-radius: 100%;
+      font-size: 20px;
+      background-color: rgba(17, 16, 0, 0.7483368347338936);
+      color: white;
+      cursor: pointer;
+    }
+  }
+  .span_msg {
+    display: ${(props) => (props.display ? "block" : "none")};
+    margin: 10px 0px;
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 8px;
+    background-color: #75757538;
+  }
+  .msg__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+`;
+
+export const DetailBackContent = styled.div`
+  padding: 5px 0px;
+  button {
+    cursor: pointer;
+    border: none;
+    background: rgba(17, 16, 0, 0.7483368347338936);
+    padding: 5px;
+    border-radius: 100%;
+    color: white;
   }
 `;

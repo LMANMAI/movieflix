@@ -1,9 +1,16 @@
 import "../styles/globals.css";
 import { AuthProvider } from "../context/auth";
+import { MenuListProvider } from "../context/MenuListContext";
+import { Layout } from "../components";
+
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
-      <Component {...pageProps} />
+      <MenuListProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </MenuListProvider>
     </AuthProvider>
   );
 }

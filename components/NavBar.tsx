@@ -1,26 +1,37 @@
 import React, { useState } from "react";
-import { AiOutlineCaretDown } from "react-icons/ai";
+import { AiOutlineCaretDown, AiOutlineMenu } from "react-icons/ai";
 import { useAuth } from "../context/auth";
+import { useRouter } from "next/router";
 import {
   NavBarContainer,
-  BrandContainer,
   Brand,
   UserSection,
   ImgContainer,
   UserIMG,
   MenuHiddenContainer,
+  Menu,
+  MenuListContainer,
 } from "../styles";
+import { useMenuList } from "../context/MenuListContext";
+const NavBar = ({ children }) => {
+  const [profileoptions, setMenuProfile] = useState<boolean>(false);
 
-const NavBar = () => {
-  const [menu, setMenu] = useState<boolean>(false);
+  const { menulist, setMenuList } = useMenuList();
   const { user, logout } = useAuth();
+  const router = useRouter();
   return (
     <NavBarContainer>
-      <BrandContainer>
-        <Brand>
+      <Menu>
+        <div className="menu_icon" onClick={() => setMenuList(!menulist)}>
+          <AiOutlineMenu />
+        </div>
+
+        <Brand onClick={() => router.push("/Home")}>
           Movie<span>FLIX</span>
         </Brand>
-      </BrandContainer>
+      </Menu>
+
+      <MenuListContainer display={menulist}>{children}</MenuListContainer>
 
       <UserSection>
         <ImgContainer>
@@ -28,10 +39,10 @@ const NavBar = () => {
         </ImgContainer>
         <AiOutlineCaretDown
           className="menu_button"
-          onClick={() => setMenu(!menu)}
+          onClick={() => setMenuProfile(!profileoptions)}
         />
 
-        <MenuHiddenContainer menu={menu}>
+        <MenuHiddenContainer menu={profileoptions}>
           <ul>
             <li>Mi cuenta</li>
             <li onClick={() => logout()}>Cerrar Sesion</li>

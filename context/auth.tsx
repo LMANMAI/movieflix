@@ -10,24 +10,39 @@ import {
 } from "firebase/auth";
 import app from "../services/firebase";
 import { useRouter } from "next/router";
+
 interface IAuth {
   user: User | null;
+  disabled: boolean;
+  loading: boolean;
+  errormsg: string;
   registerFirebase: (email, password, username) => void;
   login: (email, password) => void;
   logout: () => void;
+  setDisabled: (disabled: boolean) => void;
+  setLoading: (disabled: boolean) => void;
 }
 const auth = getAuth(app);
 
 const AuthContext = createContext<IAuth>({
   user: null,
+  disabled: false,
+  loading: false,
+  errormsg: "",
   registerFirebase: (email, password) => {},
   login: (email, password) => {},
   logout: () => {},
+  setDisabled: () => {},
+  setLoading: () => {},
 });
 
 const AuthProvider: FC = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [name, setName] = useState("");
+  const [disabled, setDisabled] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [errormsg, setErrorMsg] = useState<string>("");
+
   const router = useRouter();
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -45,49 +60,61 @@ const AuthProvider: FC = ({ children }) => {
         setUser(null);
       }
     });
-    console.log(user);
+
     return unsubscribe;
   }, [user]);
 
   const registerFirebase = async (email, password, username) => {
+    setLoading(true);
     try {
       await createUserWithEmailAndPassword(auth, email, password).then(
         (userCredential) => {
           setUser(userCredential.user);
           setName(username);
+          setLoading(false);
         }
       );
     } catch (error) {
-      console.error(error);
+      setLoading(false);
+      if (error.code) {
+        setErrorMsg(error.message);
+      }
     }
   };
   const login = async (email, password) => {
+    setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password).then(
         (userCredential) => {
           setUser(userCredential.user);
           router.push("/Home");
+          setLoading(false);
         }
       );
     } catch (error) {
-      const errorCode = error.code;
-      const errorMsg = error.message;
+      setLoading(false);
 
-      console.log(`el error ${errorCode} da como mensaje: ${errorMsg}`);
+      if (error.code) {
+        setErrorMsg(error.message);
+      }
     }
   };
   const logout = async () => {
     try {
       await signOut(auth);
       setUser(null);
-    } catch (error) {
-      console.error(error);
-    }
+      setErrorMsg("");
+    } catch (error) {}
   };
   return (
     <AuthContext.Provider
       value={{
         user,
+        disabled,
+        loading,
+        errormsg,
+        setLoading,
+        setDisabled,
         registerFirebase,
         login,
         logout,
