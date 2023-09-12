@@ -144,7 +144,7 @@ export async function getServerSideProps({ query }) {
   try {
     const movieId = query.slug;
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.NEXT_PUBLIC_APITMB_KEY}`
     );
     const movie = await response.json();
 

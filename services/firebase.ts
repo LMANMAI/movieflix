@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyASFG3tWhM3LGY6j9iAO4Y5fobde9kkeWY",
-  authDomain: "movieflix-d2afa.firebaseapp.com",
-  databaseURL: "https://movieflix-d2afa-default-rtdb.firebaseio.com",
-  projectId: "movieflix-d2afa",
-  storageBucket: "movieflix-d2afa.appspot.com",
-  messagingSenderId: "229926375830",
-  appId: "1:229926375830:web:2be14d1e5e7c24a9e00db7",
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  databaseURL: process.env.NEXT_PUBLIC_DATABASE_URL,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
