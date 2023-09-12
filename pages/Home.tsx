@@ -7,14 +7,15 @@ import WithPrivateRoute from "../routes/WithPrivateRoute";
 import { AiOutlineSearch } from "react-icons/ai";
 import { NavBar, Hero, HomeRow } from "../components";
 import { useAuth } from "../context/auth";
-const SearchDynamic = dynamic(() => import("../components/SearchResults"), {
-  ssr: false,
-});
-
+import { useMenuList } from "../context/MenuListContext";
 import Login from "./Login";
 import requests from "../config/requests";
 import { HomeWraper, Main, SearchContainer, InputSearch } from "../styles";
 import { GetServerSideProps } from "next";
+const SearchDynamic = dynamic(() => import("../components/SearchResults"), {
+  ssr: false,
+});
+
 interface IDataProps {
   dataJson: {
     page: Number;
@@ -35,7 +36,7 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
   const [moviesearched, setMoviesSearched] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
-
+  const { setMenuList } = useMenuList();
   const sliceArray = dataJson.results
     .sort(() => {
       return Math.random() - 0.5;
@@ -79,6 +80,7 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
   const navigateTo = (pathname, query = {}) => {
     setloading(true);
     clearSearch();
+    setMenuList(false);
     router.push({ pathname, query });
     if (dataJson.results.length > 0) {
       setTimeout(() => {
@@ -107,6 +109,7 @@ const Home = ({ dataJson, dataSideMovie }: IDataProps) => {
             />
             <AiOutlineSearch />
           </SearchContainer>
+
           <ul className="menu__list">
             <li
               onClick={() =>

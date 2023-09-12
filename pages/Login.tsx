@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import Image from "next/image";
 import { BiLockAlt, BiUser } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
 import { useAuth } from "../context/auth";
@@ -18,8 +17,17 @@ import {
   ButtonContent,
   SignInContainer,
 } from "../styles";
+import { Spinner } from "../components";
 const Login = () => {
-  const { registerFirebase, user, login } = useAuth();
+  const {
+    user,
+    disabled,
+    loading,
+    errormsg: error,
+    registerFirebase,
+    login,
+    setDisabled,
+  } = useAuth();
   const [position, setPosition] = useState<boolean>(false);
   //States para los errores
   const [errorname, setErrorName] = useState<boolean>(false);
@@ -27,7 +35,7 @@ const Login = () => {
   const [errorpassword, setErrorPassword] = useState<boolean>(false);
   const [erroremaillogin, setErrorEmailLogin] = useState<boolean>(false);
   const [errorpasswordlogin, setErrorPasswordLogin] = useState<boolean>(false);
-  const [disabled, setDisabled] = useState<boolean>(true);
+
   //ref para el register
   const nameRef = useRef(null);
   const emailRef = useRef(null);
@@ -149,6 +157,12 @@ const Login = () => {
     login(emaillogin, passwordlogin);
   };
 
+  useEffect(() => {
+    setErrorMsg(error);
+    setTimeout(() => {
+      setErrorMsg("");
+    }, 6000);
+  }, [error]);
   return (
     <Container className="container" position={position}>
       <FormContainer>
@@ -157,10 +171,11 @@ const Login = () => {
             className="sing_up_form"
             onSubmit={(e) => handleSubmit(e)}
           >
-            <h2>Inicia sesión</h2>
-            {errorname || erroremail || errorpassword ? (
+            {errorname || erroremail || errorpassword || errormsg.length > 0 ? (
               <div className="error">{errormsg}</div>
             ) : null}
+            <h2>Inicia sesión</h2>
+
             <InputField error={errorname}>
               <span>
                 <BiUser />
@@ -188,8 +203,8 @@ const Login = () => {
                 onChange={(e) => handleChangeLogin(e)}
               />
             </InputField>
-            <InputButton type="submit" disabled={disabled ? "disabled" : null}>
-              Entrar
+            <InputButton type="submit" disabled={disabled}>
+              {!loading ? "Entrar" : <Spinner />}
             </InputButton>
           </Formulario>
         </SignInContainer>
@@ -244,8 +259,9 @@ const Login = () => {
                 placeholder="Contraseña"
               />
             </InputField>
-            <InputButton type="submit" disabled={disabled ? "disabled" : null}>
-              Comenzar!
+
+            <InputButton type="submit" disabled={disabled}>
+              {!loading ? " Comenzar!" : <Spinner />}
             </InputButton>
           </Formulario>
         </SigninUpContainer>
@@ -264,7 +280,7 @@ const Login = () => {
               value="Sign Up"
               onClick={() => handlePosition()}
             >
-              Registrarme{" "}
+              Registrarme
             </ButtonContent>
           </Content>
           <img className="image" src="/img/login2.svg" alt="login_image" />

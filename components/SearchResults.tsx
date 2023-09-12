@@ -1,31 +1,39 @@
 import React from "react";
 import Link from "next/link";
+import Spinner from "./Spiner";
 
 import { SearchResultsWraper, SearchResultsImgContainer } from "../styles";
 
 const SearchResults = ({ movies, loading }) => {
   const baseUrl = "https://image.tmdb.org/t/p/original/";
 
-  if ((!movies || movies.length === 0) && !loading) {
+  if (loading) {
+    return (
+      <SearchResultsWraper layout={true}>
+        <Spinner />
+      </SearchResultsWraper>
+    );
+  }
+
+  if (!movies || movies.length === 0) {
     return (
       <SearchResultsWraper layout={true}>
         <div>
-          {loading
-            ? "loading"
-            : " No se encontraron datos, por favor intente buscar otro título. Disculpe las molestias."}
+          No se encontraron datos, por favor intente buscar otro título.
+          Disculpe las molestias.
         </div>
       </SearchResultsWraper>
     );
   }
 
   return (
-    <SearchResultsWraper layout={movies && movies.length > 0 ? false : true}>
+    <SearchResultsWraper layout={false}>
       <ul>
         {movies.map((movie) => {
           if (movie.backdrop_path || movie.poster_path) {
             return (
-              <Link href={`/movie/${movie.id}`}>
-                <li key={movie.id}>
+              <Link key={movie.id} href={`/movie/${movie.id}`}>
+                <li>
                   <SearchResultsImgContainer>
                     <img
                       src={`${baseUrl}${

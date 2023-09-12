@@ -10,16 +10,19 @@ import {
   UserIMG,
   MenuHiddenContainer,
   Menu,
+  MenuListContainer,
 } from "../styles";
-
+import { useMenuList } from "../context/MenuListContext";
 const NavBar = ({ children }) => {
-  const [menu, setMenu] = useState<boolean>(false);
+  const [profileoptions, setMenuProfile] = useState<boolean>(false);
+
+  const { menulist, setMenuList } = useMenuList();
   const { user, logout } = useAuth();
   const router = useRouter();
   return (
     <NavBarContainer>
       <Menu>
-        <div className="menu_icon">
+        <div className="menu_icon" onClick={() => setMenuList(!menulist)}>
           <AiOutlineMenu />
         </div>
 
@@ -28,7 +31,7 @@ const NavBar = ({ children }) => {
         </Brand>
       </Menu>
 
-      <div className="menu__list_container">{children}</div>
+      <MenuListContainer display={menulist}>{children}</MenuListContainer>
 
       <UserSection>
         <ImgContainer>
@@ -36,10 +39,10 @@ const NavBar = ({ children }) => {
         </ImgContainer>
         <AiOutlineCaretDown
           className="menu_button"
-          onClick={() => setMenu(!menu)}
+          onClick={() => setMenuProfile(!profileoptions)}
         />
 
-        <MenuHiddenContainer menu={menu}>
+        <MenuHiddenContainer menu={profileoptions}>
           <ul>
             <li>Mi cuenta</li>
             <li onClick={() => logout()}>Cerrar Sesion</li>

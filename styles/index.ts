@@ -158,6 +158,7 @@ export const Container = styled(BaseContainer)`
     width: 100%;
     transition:  1.1s ease-in-out;
     transition-delay: 0.6s;
+    filter: drop-shadow(10px 10px 10px #222);
   }
 
   ${SigninUpContainer} {
@@ -172,7 +173,7 @@ export const Container = styled(BaseContainer)`
     transition: all 250ms ease-in-out ;
   }
   .sing_up_form {
-    transition-delay: 650ms;
+    transition-delay: 350ms;
     z-index: ${(props) => (props.position ? "1" : "2")};
     opacity: ${(props) => (props.position ? "0" : "1")};
      transform:  ${(props) =>
@@ -209,6 +210,7 @@ export const Container = styled(BaseContainer)`
       width: 200px;
       transition:  0.9s ease-in-out;
       transition-delay: 0.6s;
+     
     }
     ${SigninUpContainer} {
       width: 100%;
@@ -314,11 +316,12 @@ export const Formulario = styled.form`
   transition: 0.2s 0.7s ease-in-out;
   .error {
     background: #a4161a;
-    padding: 1rem 8px;
+    padding: 0.75rem 8px;
     border-radius: 15px;
     color: white;
     text-align: center;
     font-size: 14px;
+    margin-bottom: 2rem;
   }
 `;
 export const InputField = styled.div`
@@ -341,7 +344,7 @@ export const InputField = styled.div`
   }
 `;
 export const Input = styled.input`
- background: none;
+    background: none;
     outline: none;
     border: none;
     line-height: 1;
@@ -743,20 +746,38 @@ export const NavBarContainer = styled.div`
   min-width: 80vw;
   margin: 0px auto;
   .menu__list_container {
-    display: flex;
-    flex-direction: row-reverse;
-    flex-grow: 0.5;
-    justify-content: space-between;
-    .menu__list {
-      display: none;
-      li {
-        cursor: pointer;
-      }
-      @media (min-width: 768px) {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-      }
+  }
+`;
+
+export const MenuListContainer = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  flex-grow: 0.5;
+  justify-content: space-between;
+  .menu__list {
+    font-size: 13px;
+    display: ${(props) => (props.display ? "block" : "none")};
+    position: absolute;
+    z-index: 9;
+    left: 12vw;
+    top: 12vw;
+    background-color: #222;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 8px;
+
+    li {
+      cursor: pointer;
+      padding: 7px 10px;
+    }
+    @media (min-width: 768px) {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      position: inherit;
+      border: none;
+      background: transparent;
+      padding: inherit;
     }
   }
 `;
@@ -958,6 +979,7 @@ export const DetailBackground = styled.div`
   width: 100%;
   background: url(${(props) => props.posterPath}) center/cover no-repeat;
   height: 100vh;
+  transition: display 250ms ease;
   #detail__container {
     width: 100vw;
     height: 100vh;
@@ -977,6 +999,35 @@ export const DetailBackground = styled.div`
     flex-direction: column;
     justify-content: space-between;
     padding-bottom: 5rem;
+  }
+  .movie__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    button {
+      outline: none;
+      border: none;
+      border-radius: 100%;
+      font-size: 20px;
+      background-color: rgba(17, 16, 0, 0.7483368347338936);
+      color: white;
+      cursor: pointer;
+    }
+  }
+  .span_msg {
+    display: ${(props) => (props.display ? "block" : "none")};
+    margin: 10px 0px;
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 8px;
+    background-color: #75757538;
+  }
+  .msg__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
   }
 `;
 
