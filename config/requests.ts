@@ -1,4 +1,4 @@
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+const API_KEY = process.env.NEXT_PUBLIC_APITMB_KEY;
 interface IRQ {
   fetchTrending: string;
   fetchNetflixOriginals: string;
