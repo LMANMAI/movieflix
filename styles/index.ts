@@ -32,7 +32,7 @@ export const LogginButton = styled.button`
   font-size: 1rem;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   cursor: pointer;
 `;
 export const Box = styled.div`
@@ -93,7 +93,6 @@ export const LandingContent = styled.section`
   position: relative;
 `;
 export const BlurBox = styled.div`
-  border: 1px solid red;
   width: 80%;
   height: 90%;
   position: absolute;
@@ -107,13 +106,12 @@ export const SigninUpContainer = styled.div`
   position: absolute;
   top: 50%;
   left: -55%;
-  display: grid;
   grid-template-columns: 1fr;
-  z-index: ${(props) => (props.position ? "99" : "0")};
-  transition: 1s 0.7s ease-in-out;
+  z-index: ${(props) => (props.type === "register" ? "99" : "-1")};
+  transition: all 0.7s ease-in-out;
   transform: translate(-75%, -25%);
   width: 100%;
-
+  pointer-events: ${(props) => (props.type === "register" ? "all" : "none")};
   @media (min-width: 768px) {
     transform: translate(-50%, -50%);
     width: 50%;
@@ -130,7 +128,7 @@ export const SignInContainer = styled.div`
   grid-template-columns: 1fr;
   z-index: ${(props) => (props.position ? "0" : "99")};
   transition: 1s 0.7s ease-in-out;
-
+  pointer-events: ${(props) => (props.type === "login" ? "all" : "none")};
   @media (min-width: 768px) {
     transform: translate(-50%, -50%);
     width: 50%;
@@ -218,12 +216,10 @@ export const Container = styled(BaseContainer)`
       top: ${(props) => (props.position ? "15%" : "95%")};
       transform: ${(props) =>
         props.position ? "translate(-50%, 0)" : "translate(-50%, -100%)"};
-      transition: 1.5s 0.8s ease-in-out;
-      pointer-events: all;
-      z-index: 99;
+      transition: 1.5s 0.8s ease-in-out;     
+    
     }
     .panels-container {
-      // background-color: green;
       z-index: 10;
       grid-template-columns: 1fr;
       grid-template-rows: 1fr 2fr 1fr;
@@ -246,7 +242,7 @@ export const Container = styled(BaseContainer)`
       padding: 0.5rem 0;
     }
     .btn.transparent {
-      width: 110px;
+      width: fit-content;
       height: 35px;
       font-size: 0.7rem;
     }
@@ -330,7 +326,7 @@ export const InputField = styled.div`
   height: 55px;
   background-color: #f0f0f0;
   margin: 10px 0;
-  border-radius: 55px;
+  border-radius: 5px;
   display: grid;
   grid-template-columns: 15% 85%;
   overflow: hidden;
@@ -361,7 +357,7 @@ export const InputButton = styled.button`
   height: 50px;
   border: none;
   outline: none;
-  border-radius: 50px;
+  border-radius: 5px;
 
   background-color: #e50914;
   color: #fff;
@@ -412,11 +408,11 @@ export const PanelLeft = styled.div`
   transition: 0.9s 0.6s ease-in-out;
   transform: ${(props) =>
     props.position ? "translateX(-800px)" : "translateX(0px)"};
-  pointer-events: ${(props) => (props.position ? "all" : "none")};
+  pointer-events: ${(props) => (props.type === "login" ? "all" : "none")};
 `;
 
 export const PanelRight = styled.div`
-  pointer-events: ${(props) => (props.position ? "none" : "all")};
+  pointer-events: ${(props) => (props.type === "register" ? "all" : "none")};
   padding: 3rem 12% 2rem 17%;
   .content,
   & .image {
@@ -432,8 +428,8 @@ export const ButtonContent = styled(InputButton)`
   margin: 0;
   background: none;
   border: 3px solid #fff;
-  width: "130px";
-  height: "41px";
+  width: 150px;
+  height: 45px;
   font-weight: 600;
   font-size: 0.8rem;
 `;
@@ -711,7 +707,7 @@ export const SearchContainer = styled.div`
   width: 100%;
   margin: 1rem 1.125rem;
   padding: 5px;
-  border-radius: 10px;
+  border-radius: 5px;
   align-items: center;
 
   max-width: 300px;
@@ -830,7 +826,7 @@ export const MenuHiddenContainer = styled.div`
   text-align: center;
   background-color: rgb(19, 19, 19);
   border: 1px solid rgba(151, 151, 151, 0.34);
-  border-radius: 4px;
+  border-radius: 5px;
   box-shadow: rgb(0 0 0 /50%) 0px 0px 18px 0px;
   transition: all 250ms ease-in-out;
   visibility: ${(props) => (props.menu ? "visible" : "hidden")};

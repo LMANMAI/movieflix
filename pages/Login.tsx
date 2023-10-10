@@ -29,6 +29,7 @@ const Login = () => {
     setDisabled,
   } = useAuth();
   const [position, setPosition] = useState<boolean>(false);
+  const [typepanel, setTypePanel] = useState<string>("login");
   //States para los errores
   const [errorname, setErrorName] = useState<boolean>(false);
   const [erroremail, setErrorEmail] = useState<boolean>(false);
@@ -163,10 +164,11 @@ const Login = () => {
       setErrorMsg("");
     }, 6000);
   }, [error]);
+
   return (
     <Container className="container" position={position}>
       <FormContainer>
-        <SignInContainer position={position}>
+        <SignInContainer position={position} type={typepanel}>
           <Formulario
             className="sing_up_form"
             onSubmit={(e) => handleSubmit(e)}
@@ -209,7 +211,7 @@ const Login = () => {
           </Formulario>
         </SignInContainer>
 
-        <SigninUpContainer position={position}>
+        <SigninUpContainer position={!position} type={typepanel}>
           <Formulario
             className="sing_in_form"
             onSubmit={(e) => handleRegister(e)}
@@ -268,17 +270,24 @@ const Login = () => {
       </FormContainer>
 
       <PanelsContainer className="panels-container">
-        <PanelLeft className="panel panel_left login" position={position}>
+        <PanelLeft
+          className="panel panel_left login"
+          position={position}
+          type={typepanel}
+        >
           <Content className="content">
             <h3>¿Nuevo aqui?</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora?
+              Crea una cuenta y explora los diferentes titulos de la plataforma
             </p>
             <ButtonContent
               className="btn transparent"
               id="sign-up-btn"
               value="Sign Up"
-              onClick={() => handlePosition()}
+              onClick={() => {
+                setTypePanel("register");
+                handlePosition();
+              }}
             >
               Registrarme
             </ButtonContent>
@@ -286,16 +295,23 @@ const Login = () => {
           <img className="image" src="/img/login2.svg" alt="login_image" />
         </PanelLeft>
 
-        <PanelRight className="panel panel_right register" position={position}>
+        <PanelRight
+          className="panel panel_right register"
+          position={position}
+          type={typepanel}
+        >
           <Content className="content">
             <h3>¿Ya tienes una cuenta?</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora?
+              Ingresa a tu cuenta y continua agregando titulos a tus favoritos
             </p>
             <ButtonContent
               className="btn transparent"
               id="sign-in-btn"
-              onClick={() => handlePosition()}
+              onClick={() => {
+                setTypePanel("login");
+                handlePosition();
+              }}
             >
               Entrar a mi cuenta
             </ButtonContent>
