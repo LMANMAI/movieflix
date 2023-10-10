@@ -109,7 +109,7 @@ export const SigninUpContainer = styled.div`
   left: -55%;
   display: grid;
   grid-template-columns: 1fr;
-  z-index: 5;
+  z-index: ${(props) => (props.position ? "99" : "0")};
   transition: 1s 0.7s ease-in-out;
   transform: translate(-75%, -25%);
   width: 100%;
@@ -128,7 +128,7 @@ export const SignInContainer = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: 1fr;
-  z-index: 5;
+  z-index: ${(props) => (props.position ? "0" : "99")};
   transition: 1s 0.7s ease-in-out;
 
   @media (min-width: 768px) {
@@ -412,12 +412,14 @@ export const PanelLeft = styled.div`
   transition: 0.9s 0.6s ease-in-out;
   transform: ${(props) =>
     props.position ? "translateX(-800px)" : "translateX(0px)"};
-`;
-export const PanelRight = styled.div`
   pointer-events: ${(props) => (props.position ? "all" : "none")};
-  } ;
+`;
+
+export const PanelRight = styled.div`
+  pointer-events: ${(props) => (props.position ? "none" : "all")};
   padding: 3rem 12% 2rem 17%;
-  .content, & .image{
+  .content,
+  & .image {
     transform: ${(props) =>
       props.position ? "translateX(0px)" : "translateX(800px)"};
   }

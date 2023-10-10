@@ -166,7 +166,7 @@ const Login = () => {
   return (
     <Container className="container" position={position}>
       <FormContainer>
-        <SignInContainer>
+        <SignInContainer position={position}>
           <Formulario
             className="sing_up_form"
             onSubmit={(e) => handleSubmit(e)}
@@ -209,7 +209,7 @@ const Login = () => {
           </Formulario>
         </SignInContainer>
 
-        <SigninUpContainer>
+        <SigninUpContainer position={position}>
           <Formulario
             className="sing_in_form"
             onSubmit={(e) => handleRegister(e)}
@@ -268,7 +268,7 @@ const Login = () => {
       </FormContainer>
 
       <PanelsContainer className="panels-container">
-        <PanelLeft className="panel panel_left" position={position}>
+        <PanelLeft className="panel panel_left login" position={position}>
           <Content className="content">
             <h3>¿Nuevo aqui?</h3>
             <p>
@@ -286,7 +286,7 @@ const Login = () => {
           <img className="image" src="/img/login2.svg" alt="login_image" />
         </PanelLeft>
 
-        <PanelRight className="panel panel_right" position={position}>
+        <PanelRight className="panel panel_right register" position={position}>
           <Content className="content">
             <h3>¿Ya tienes una cuenta?</h3>
             <p>
